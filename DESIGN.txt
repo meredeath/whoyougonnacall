@@ -1,0 +1,49 @@
+Names
+Meredith Hu, T Fabiha, Milan Haiman
+
+High level (low level) Description
+ * We are coding the game Ghost in C. It is a word based game where a player contributes a single letter or chooses to challenge the previous previous player per turn, all in the premise of avoiding completing a legal word from the letters contributed thus far while making sure that the letters thus far forms the fragment of a legal word.
+ * When somebody completes the word they are given a point. Each point signifies a letter in the word GHOST. Whoever is the first to complete the word loses.  
+ * If someone seems to purposely avoids completing an obvious word, another player can challenge that player. The challenged player has to prove that the word so far (including their contribution) is the beginning of a valid word. If they can, the challenger gets a point, but if they can’t, then they get a point. 
+ * The winning conditions are to have the least points or be the only player remaining. Players earn points in three conditions.
+ -The latest letter the contributed lead to a lead to a legal word consisting of all the letters that have thus far been contributed.
+ -The player after them challenges their letter and and they choose to either forfeit or the letters thus far cannot be the beginnings of a legal word.
+ -The player falsely challenges the player before them.
+ * A player is removed from play when they acquire 5 points.
+
+User Interface
+Text-based terminal.
+ * Challenging will work by controlling input from clients to servers. A client will ask to challenge, and the message will be sent to the server. The server will communicate with the challenged client, who will send a message with either a valid word (to be searched for in the dictionary) or a surrender, and points will be given accordingly.) This does not belong in the technical design
+
+Technical Design
+ * Reading legal words from stored files into binary search tree. Make a dictionary file, accessible to all game files, in the form of a binary search tree for easy lookup of legal words. (Fabiha)
+ * Basic forking server allowing two clients to connect at the same time. (Meredith)
+ * Use of linked lists to store letters contributed thus far by players in the server.
+ * Server controlling gameplay between two computers with networking.
+ * each client will give input that the other client can see on the machine that client is playing from.
+ * Points will be stored in dynamically allocated memory associated with each running game in the server process, and they will be updated on the server, but be accessible by clients.
+ * (Optional) signal handling.
+
+Timeline 
+#Monday 12/31
+ * Get basic forking server working
+ * Make the dictionary with legal words and convert to a BST
+
+#Friday 1/4
+ * Get server able to start a game between two clients that connect. Clients will be automatically connected to an existing game that needs a second player, or be put into a new game if one does not exist. More than two clients cannot play, as of now.
+ * make linked list storage of the word so far in the server process
+ * have clients be able to connect from different computers (networking)
+ * have clients be able to see each others’ inputs. Every input given so far will be sent to the terminal, so each client can see the word that has been formed so far.
+
+#Monday 1/7
+ * implementing the point counting system in the server
+ * having the program detect when a valid word has been formed, and assigning points to the correct client when it detects a valid word has been formed.
+
+#Friday 1/11
+ * having the program be able to execute an entire game (waiting for players to accumulate five points)
+ * implementing win/loss messages
+ * getting challenges to work.
+
+#Monday 1/14
+ * Give the clients an option, upon successful connection, between joining an existing game or creating a new game.
+ * signal handling.
