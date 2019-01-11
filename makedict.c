@@ -5,6 +5,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
+#include "dict.h"
+
 // // Info for compatibility with other files
 
 // /// top of file
@@ -27,14 +29,6 @@
 // 	/// now do stuff with data
 
 
-
-#define DICT_ARR_KEY 12358
-
-#define MAX_WORD_LEN 40
-
-#define DICT_FILENAME "dictall.txt"
-
-#define NUM_WORDS 100000
 
 int main() {
 

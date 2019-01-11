@@ -6,13 +6,7 @@
 #include <string.h>
 #include <errno.h>
 
-#define DICT_ARR_KEY 12358
-
-#define MAX_WORD_LEN 40
-
-#define DICT_FILENAME "dictall.txt"
-
-#define NUM_WORDS 100000
+#include "dict.h"
 
 // finished binary search but still have to change function name
 // and return statement
