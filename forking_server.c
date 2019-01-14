@@ -9,7 +9,7 @@ int main() {
   int f;
   listen_socket = server_setup();
 
-  int num_players = 1;
+  int num_players = 2;
   
   int players[num_players];
   char buffer[BUFFER_SIZE];
