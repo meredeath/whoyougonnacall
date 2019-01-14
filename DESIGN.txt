@@ -38,28 +38,33 @@ Technical Design
  * (Optional) signal handling.
 
 Timeline 
-#Monday 12/31
- * Get basic forking server working
+#Friday 1/4
  * Make the dictionary with legal words and convert to a BST
 
-#Friday 1/4
- * Get server able to start a game between two clients that connect. Clients will be automatically connected to an existing
+#Monday 1/7
+ * Get basic server working
+
+#Friday 1/11
+ * having the program detect when a valid word has been formed
+
+#Monday 1/14
+  * Get server able to start a game between two clients that connect. Clients will be automatically connected to an existing
  game that needs a second player, or be put into a new game if one does not exist. More than two clients cannot play, as of now.
- * make linked list storage of the word so far in the server process
  * have clients be able to connect from different computers (networking)
  * have clients be able to see each others’ inputs. Every input given so far will be sent to the terminal, so each client can
  see the word that has been formed so far.
 
-#Monday 1/7
+#Wednesday 1/16
+ * assigning points to the correct client when it detects a valid word has been formed.
  * implementing the point counting system in the server
- * having the program detect when a valid word has been formed, and assigning points to the correct client when it detects a
- valid word has been formed.
+ * make linked list storage of the word so far in the server process
 
-#Friday 1/11
+#Friday 1/18
  * having the program be able to execute an entire game (waiting for players to accumulate five points)
  * implementing win/loss messages
  * getting challenges to work.
-
-#Monday 1/14
+ 
+#Extra Stuff We Probably Won't Do
  * Give the clients an option, upon successful connection, between joining an existing game or creating a new game.
  * signal handling.
+ * implement timer for turns
