@@ -19,7 +19,60 @@ int main(int argc, char **argv) {
 
   // allow them to join or read instructions
 
-  
+
+  // intro
+  // *  ____________________
+  // * |
+  // * | WELCOME PLAYER 0!
+  // * | 
+  // * | This is GHOST
+  // * |
+  // * | Options:
+  // * | [1] instruction
+  // * | [2] join game
+  // * |
+  // * | Input: _
+
+
+  // round_face0
+  // *  ____________________
+  // * |
+  // * | Player 0's score: 2
+  // * |  
+  // * | letters in play: cou_
+  // * |
+  // * | Options:
+  // * | [1] challenge previous player
+  // * | [2] input a letter
+  // * |
+  // * | Input: _
+
+  // round_face1
+  // *  ____________________
+  // * |
+  // * | Player 0's score: 2
+  // * |  
+  // * | letters in play: cou_
+  // * |
+  // * | Please input a letter.
+  // * | 
+  // * | Input: _
+  // * | 
+
+
+  // waiting
+  // *  ____________________
+  // * |
+  // * | Player 0's score: 2
+  // * |  
+  // * | letters in play: cou_
+  // * |
+  // * | Waiting for Player 2...
+  // * | 
+  // * | 
+  // * | 
+
+
   for (int i = 0; i < 2; i++)
     {
       read( server_socket, buffer, sizeof(buffer) );
