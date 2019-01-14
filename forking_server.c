@@ -9,7 +9,7 @@ int main() {
   int f;
   listen_socket = server_setup();
 
-  int num_players = 2;
+  int num_players = 1;
   
   int players[num_players];
   char buffer[BUFFER_SIZE];
@@ -21,7 +21,6 @@ int main() {
       sprintf(buffer, "Welcome Player %d! Please patiently wait for all other players to connect.\n", i);
       
       write( players[i], buffer, sizeof(buffer) );
-      // if ( read(players[i], buffer, ) )
     }
 
   for (int i = 0; i < num_players; i++)
@@ -49,9 +48,10 @@ int main() {
 	  if (prev_player < 0)
 	    prev_player = num_players - 1;
 
-	  read( players[prev_player], buffer, sizeof(buffer) );
-
-	  sprintf(buffer, "This is what the previous player has said: %s\n", buffer);
+	  char temp[BUFFER_SIZE];
+	  read( players[prev_player], temp, sizeof(buffer) );
+	  
+	  printf(buffer, "This is what the previous player has said:%s\n", temp);
 
 	  write( players[current_player], buffer, sizeof(buffer) );
       
