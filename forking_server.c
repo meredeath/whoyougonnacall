@@ -32,11 +32,11 @@ int main() {
     }
 
   int current_player = 0;
-  sprintf(buffer, " ");
+  sprintf(buffer, "ghghghghghgghg");
     
   while (1)
     {
-      if (strcmp(buffer, " ") == 0)
+      if (strcmp(buffer, "ghghghghghgghg") == 0)
 	{
 	  sprintf(buffer, "Congrats! You are the first player!\n");
 	  
@@ -54,10 +54,13 @@ int main() {
 	  sprintf(buffer, "This is what the previous player has said: %s\n", buffer);
 
 	  write( players[current_player], buffer, sizeof(buffer) );
+      
 	}
 	
       sprintf(buffer, "Please say something to the next player: ");
       
       write( players[current_player], buffer, sizeof(buffer) );
+
+      current_player = (current_player + 1) % num_players;
     }
 }

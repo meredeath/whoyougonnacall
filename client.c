@@ -23,6 +23,10 @@ int main(int argc, char **argv) {
       printf("%s", buffer);
       fflush(stdout);
 
+      read( server_socket, buffer, sizeof(buffer) );
+      printf("%s", buffer);
+      fflush(stdout);
+      
       fscanf(stdin, "%s", buffer);
       write( server_socket, buffer, sizeof(buffer) );
     }
