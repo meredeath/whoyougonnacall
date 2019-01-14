@@ -51,7 +51,7 @@ int main() {
 	  char temp[BUFFER_SIZE];
 	  read( players[prev_player], temp, sizeof(buffer) );
 	  
-	  printf(buffer, "This is what the previous player has said:%s\n", temp);
+	  sprintf(buffer, "This is what the previous player has said: %s\n", temp);
 
 	  write( players[current_player], buffer, sizeof(buffer) );
       
