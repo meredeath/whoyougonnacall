@@ -12,12 +12,14 @@ int main() {
   int num_players = 2;
   
   int players[num_players];
+  int player_points[num_players];
   char buffer[BUFFER_SIZE];
   
   for (int i = 0; i < num_players; i++)
     {
       players[i] = server_connect(listen_socket);
-
+      player_points[i] = 0;
+      
       sprintf(buffer, "Welcome Player %d! Please patiently wait for all other players to connect.\n", i);
       
       write( players[i], buffer, sizeof(buffer) );
@@ -35,6 +37,8 @@ int main() {
     
   while (1)
     {
+      printf("Current player: %d\n", current_player);
+      
       if (strcmp(buffer, "ghghghghghgghg") == 0)
 	{
 	  sprintf(buffer, "Congrats! You are the first player!\n");

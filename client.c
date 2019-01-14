@@ -1,5 +1,7 @@
 #include "networking.h"
 
+#define clear printf("\033[H\033[J")
+
 int main(int argc, char **argv) {
 
   int server_socket;
@@ -10,9 +12,18 @@ int main(int argc, char **argv) {
   else
     server_socket = client_setup( TEST_IP );
 
+  // welcome
+  clear;
+  printf("Welcome to GHOST!\n");
+  printf("Here are your options:\n");
+
+  // allow them to join or read instructions
+
+  
   for (int i = 0; i < 2; i++)
     {
       read( server_socket, buffer, sizeof(buffer) );
+      clear;
       printf("%s", buffer);
       fflush(stdout);
     }
@@ -24,11 +35,15 @@ int main(int argc, char **argv) {
       fflush(stdout);
 
       read( server_socket, buffer, sizeof(buffer) );
+      clear;
       printf("%s", buffer);
       fflush(stdout);
       
       fscanf(stdin, "%s", buffer);
       write( server_socket, buffer, sizeof(buffer) );
+      clear;
+      printf("Now waiting for a response.");
+      
     }
   
   /*
