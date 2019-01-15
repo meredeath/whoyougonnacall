@@ -7,3 +7,8 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
 int printstate(int numplayers, int scores[], char * letters, int activeplayer); // helper function
 
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer);
+
+int winround();
+
+int loseround();
+
