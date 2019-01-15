@@ -4,6 +4,7 @@
 #include "clientmethods.h"
 #include "networking.h"
 
+#define LEN 63 //don't change this
 
 #define clear printf("\033[H\033[J")
 
@@ -11,47 +12,55 @@ int intro()
 { // prints stuff
   char input[BUFFER_SIZE];
 
-  while(1)
-    {
-      clear;
+  while(1) {
+    displayheader();
 
-      printf("Welcome to GHOST!\nHere are your options:\n\n[1] Read Instructions\n[2] Join Game\n\nChoose an option (enter \"1\" or \"2\"): ");
-      fflush(stdout);
-      fgets(input, BUFFER_SIZE, stdin);
+    displayline("Welcome to GHOST!");
+    displayline("Here are your options:");
+    displayline("");
+    displayline("  [1] Read Instructions");
+    displayline("  [2] Join Game");
+    displayline("");
+    displayquestion("Choose an option (enter \"1\" or \"2\"): ");
+    fflush(stdout);
+    fgets(input, BUFFER_SIZE, stdin);
 
-      if(!strncmp(input,"1",1))
-	{
-	  clear;
+    if(!strncmp(input,"1",1))
+    	{
+    	  displayheader();
 
-	  printf("Insert Instructions Here\n"); // What do we want to put here?
-	  printf("Press Enter to return to the main menu.");
+    	  displayline("Insert Instructions Here"); // What do we want to put here?
+        enterblock();
 
-	  fgets(input, BUFFER_SIZE, stdin);
-	  continue; // goes back to main menu
-	}
+    	  fgets(input, BUFFER_SIZE, stdin);
+    	  continue; // goes back to main menu
+    	}
       
-      if(!strncmp(input,"2",1)) {
-	break;
-	// should now go to wait after intro() is done
-      }
-      
-      clear;
-      printf("░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄\n░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄\n░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█\n░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█\n░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█\n█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█\n█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█\n░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█\n░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█\n░░░█░░██░░▀█▄▄▄█▄▄█▄████░█\n░░░░█░░░▀▀▄░█░░░█░███████░█\n░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█\n░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░█\n░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░█\n░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░█\nPlease follow directions\n");
-      break;
+    if(!strncmp(input,"2",1)) {
+    	break;
+    	// should now go to wait after intro() is done
+    }
+    // trolling for idiots
+    clear;
+    printf("░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄\n░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄\n░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█\n░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█\n░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█\n█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█\n█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█\n░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█\n░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█\n░░░█░░██░░▀█▄▄▄█▄▄█▄████░█\n░░░░█░░░▀▀▄░█░░░█░███████░█\n░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█\n░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░█\n░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░█\n░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░█\n Follow directions\n");
+    break;
   }
   return 0;
 }
 
 int printstate(int numplayers, int scores[], char * letters, int activeplayer)
 { // helper function
-  clear;
+  displayheader();
+  char * temp;
+  for(int i = 0; i < numplayers; i++) {
+    sprintf(temp, "Player %d's score: %d", i, scores[i]);
+    displayline(temp);
+  }
+
+  displayline("");
   
-  for(int i = 0; i < numplayers; i++)
-    {
-      printf("Player %d's score: %d\n", i, scores[i]);
-    }
-  
-  printf("\nLetters in play: %s_\n", letters);
+  sprintf(temp, "Letters in play: %s_", letters);
+  displayline(temp);
 
   return 0;
 }
@@ -60,7 +69,10 @@ int waiting( int numplayers, int scores[], char * letters, int activeplayer)
 {
   //block until receive message, return the message
   printstate(numplayers, scores, letters, activeplayer);
-  printf("\nWaiting for Player %d...\n", activeplayer);
+  char * temp;
+  displayline("");
+  sprintf(temp, "Waiting for Player %d...", activeplayer);
+  displayline(temp);
 
   /*
   char buffer[BUFFER_SIZE];
@@ -82,7 +94,7 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   
   char input[BUFFER_SIZE];
   
-  printf("\nEnter a letter: ");
+  displayquestion("Enter a letter: ");
   fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
   input[1] = 0;
@@ -99,7 +111,7 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
 
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
-  printf("You are the first round!\n");
+  displayline("You are the first round!");
   enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
     
@@ -108,7 +120,7 @@ int firstplay(int server_socket, int numplayers, int scores[], char * letters, i
 
 int normround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
-  printf("It is your round!\n");
+  displayline("It is your round!");
   enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
   return 0;
@@ -117,44 +129,47 @@ int normround(int server_socket, int numplayers, int scores[], char * letters, i
 int winround( int server_socket) {
   char buffer[BUFFER_SIZE];
   int err = read( server_socket, buffer, sizeof(buffer) );
-  printf("Player %s lost the round.\n", buffer);
+  
+  char * temp;
+  sprintf(temp, "Player %s lost the round.", buffer);
+  displayline(temp);
   enterblock();
   return 0;
 }
 
 int loseround() {
-  printf("You lost the round.\n");
+  displayline("You lost the round.");
   enterblock();
   return 0;
 }
 
 int wingame() {
-  printf("You won the game.\n");
+  displayline("You won the game.");
   enterblock();
   return 0;
 }
 
 int losegame() {
-  printf("You lost the game.\n");
+  displayline("You lost the game.");
   enterblock();
   return 0;
 }
 
 int enterblock() { // "press enter to continue"
-  printf("Press Enter to continue...\n");
+  displayline("Press Enter to continue...");
   char input[BUFFER_SIZE];
   fgets(input, BUFFER_SIZE, stdin);
   return 0;
 }
 
 int displayheader() {
-printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
-return 0;
-//"*  " + 63 characters + "  *"
+  clear;
+  printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
+  return 0;
+  // "*  " + 63 characters + "  *"
 }
 
 int displayline(char * toprint) { //toprint must be shorter than 64 (not null) characters
-  int LEN = 63;
   char spacer[LEN + 1];
   for(int i = 0;i < LEN;i++) {
     spacer[i]=' ';
@@ -169,6 +184,16 @@ int displayline(char * toprint) { //toprint must be shorter than 64 (not null) c
   return 0;
 }
 
+int displayquestion(char * toprint) { //same as displaylie(), but for when you want user input after it is printed
+  char spacer[LEN];
+  for(int i = 0;i < LEN;i++) {
+    spacer[i]=0;
+  }
+  strncpy(spacer,toprint,LEN - 1);
+  printf("\n   %s", spacer);
+  return 0;
+}
+
 
 //TESTING
 // int main()
@@ -176,7 +201,7 @@ int displayline(char * toprint) { //toprint must be shorter than 64 (not null) c
 //   displayheader();
 //   displayline("blahasdfasdfasdf");
 //   displayline("012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567");
-//   intro();
+  // intro();
 
 //   int scores[3];
 

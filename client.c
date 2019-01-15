@@ -116,7 +116,7 @@ int main(int argc, char **argv) {
 	  
 	}
     }
-    /*
+    
   // intro
   // *  ____________________
   // * |
@@ -196,7 +196,7 @@ int main(int argc, char **argv) {
       
     }
   '''
-  /*
+  
   while (1) {
     printf("enter data: ");
     fgets(buffer, sizeof(buffer), stdin);

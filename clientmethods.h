@@ -20,3 +20,10 @@ int losegame();
 
 int enterblock(); // "press enter to continue"
 
+int displayheader();
+
+int displayline(char * toprint); // toprint must be shorter than 64 (not null) characters, otherwise only the first 63 non-null characters will be displayed; also DO NOT pass any \n characters
+
+int displayquestion(char * toprint); //same as displaylie(), but for when you want user input after it is printed
+
+
