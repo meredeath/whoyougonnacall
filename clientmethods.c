@@ -134,7 +134,7 @@ int normround(int server_socket, int numplayers, int scores[], char * letters, i
   return 0;
 }
 
-int winround() {
+int winround( int server_socket) {
   char buffer[BUFFER_SIZE];
   int err = read( server_socket, buffer, sizeof(buffer) );
   printf("Player %s lost the round.\n", buffer);

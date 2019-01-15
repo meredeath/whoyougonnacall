@@ -76,7 +76,19 @@ int main(int argc, char **argv) {
 	}
       
       // challenged
-  
+
+      // win round
+      if (strcmp(buffer, "win round") == 0)
+	{
+	  winround(server_socket);
+	}
+      
+      // lose round
+      if (strcmp(buffer, "lose round") == 0)
+	{
+	  loseround();
+	}
+      
       // waiting
       if (strcmp(buffer, "wait") == 0)
 	{
