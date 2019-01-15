@@ -3,24 +3,28 @@
 Friday 12-28-18 -- day 0
  * updated design document (Everyone)
  
-Sunday 1/6/18 -- day 9
+Sunday 1/6/19 -- day 9
  * make dictionary from file (Milan)
  
-Tuesday 1/8/18 -- day 11
+Tuesday 1/8/19 -- day 11
  * made binary search for dictionary (Fabiha)
  
-Thursday 1/10/18 -- day 13
+Thursday 1/10/19 -- day 13
  * started making .h file for function headers (Meredith)
  * updated design document (Meredith)
  
-Friday 1/11/18 -- day 14
+Friday 1/11/19 -- day 14
  * updating header file (Milan)
  
-Sunday 1/13/18 -- day 16
+Sunday 1/13/19 -- day 16
  * made basic server (Fabiha)
  * got socket networking to work (Fabiha) 
 
-Monday 1/14/18 -- day 17
+Monday 1/14/19 -- day 17
  * updated README.md (Meredith)
  * made DEVLOG (Meredith)
  * wrote client functions (Milan)
+ 
+Tuesday 1/15/19 -- day 18
+ * more client functions (Milan)
+ * server stuff (Fabiha)
