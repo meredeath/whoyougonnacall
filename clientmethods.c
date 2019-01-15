@@ -87,6 +87,10 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   fgets(input, BUFFER_SIZE, stdin);
   input[1] = 0;
 
+  if (input[0]>='A' && input[0]<='Z') {
+    input[0] = input[0] + 'a' - 'A';
+  }
+
   write( server_socket, input, sizeof(input) ); // should add some formatting / message standardization
 
   return 0;
