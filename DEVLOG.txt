@@ -23,3 +23,4 @@ Sunday 1/13/18 -- day 16
 Monday 1/14/18 -- day 17
  * updated README.md (Meredith)
  * made DEVLOG (Meredith)
+ * wrote client functions (Milan)
