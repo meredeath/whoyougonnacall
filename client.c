@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
       // waiting
       if (strcmp(buffer, "wait") == 0)
 	{
-	  waiting( server_socket, num_players, scores, letters,  me);
+	  waiting( num_players, scores, letters,  me);
 	}
     }
   

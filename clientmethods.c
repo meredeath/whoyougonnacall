@@ -56,7 +56,7 @@ int printstate(int numplayers, int scores[], char * letters, int activeplayer)
   return 0;
 }
 
-int waiting(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
+int waiting( int numplayers, int scores[], char * letters, int activeplayer)
 {
   //block until receive message, return the message
   printstate(numplayers, scores, letters, activeplayer);
@@ -130,7 +130,6 @@ int normround(int server_socket, int numplayers, int scores[], char * letters, i
   printf("It is your round!\n");
   enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
-    
   return 0;
 }
 
