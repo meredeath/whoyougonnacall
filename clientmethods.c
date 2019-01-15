@@ -8,16 +8,16 @@
 #define clear printf("\033[H\033[J")
 
 int intro() { // prints stuff
-  	char input[16];
+  	char input[BUFFER_SIZE];
   	while(1) {
   		clear;
-		printf("Welcome to GHOST!\nHere are your options:\n\n[1] Read Instructions\n[2] Join Game\n\nChoose an option (1 or 2): ");
-		fgets(input, 16, stdin);
+		printf("Welcome to GHOST!\nHere are your options:\n\n[1] Read Instructions\n[2] Join Game\n\nChoose an option (enter \"1\" or \"2\"): ");
+		fgets(input, BUFFER_SIZE, stdin);
 	  	if(!strncmp(input,"1",1)) {
 	  		clear;
 	  		printf("Insert Instructions Here\n"); // What do we want to put here?
 	  		printf("Press Enter to return to the main menu.");
-	  		fgets(input, 16, stdin);
+	  		fgets(input, BUFFER_SIZE, stdin);
 	  		continue; // goes back to main menu
 	  	}
 	  	if(!strncmp(input,"2",1)) {
@@ -31,12 +31,17 @@ int intro() { // prints stuff
 	return 0;
 }
 
-int waiting(int server_socket, int numplayers, int scores[], char * letters, int activeplayer, char * buffer) { //block until receive message, return the message
+int printstate(int numplayers, int scores[], char * letters, int activeplayer) { // helper function
 	clear;
 	for(int i = 0; i < numplayers; i++) {
 		printf("Player %d's score: %d\n", i, scores[i]);
 	}
-	printf("\nLetters in play: %s\n", letters);
+	printf("\nLetters in play: %s_\n", letters);
+	return 0;
+}
+
+int waiting(int server_socket, int numplayers, int scores[], char * letters, int activeplayer, char * buffer) { //block until receive message, return the message
+	printstate(numplayers, scores, letters, activeplayer);
 	printf("\nWaiting for Player %d...\n", activeplayer);
 	int err = read( server_socket, buffer, sizeof(buffer) );
 	if(err == -1) {
@@ -46,9 +51,13 @@ int waiting(int server_socket, int numplayers, int scores[], char * letters, int
 	return 0;
 }
 
-int playround() { //print game state, ask for a letter, send it to server
-	// fscanf(stdin, "%s", buffer);
- //    write( server_socket, buffer, sizeof(buffer) );
+int playround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer) { //print game state, ask for a letter, send it to server
+	printstate(numplayers, scores, letters, activeplayer);
+	char input[BUFFER_SIZE];
+	printf("\nEnter a letter: ");
+	fgets(input, BUFFER_SIZE, stdin);
+	input[1] = 0;
+    write( server_socket, input, sizeof(input) ); // should add some formatting / message standardization
 	return 0;
 }
 
@@ -62,5 +71,6 @@ int main() {
 	char buffer[BUFFER_SIZE];
 	waiting(2019, 3, scores, "bla", 2, buffer );
 	printf("%s\n", buffer);
+	playround(2019, 3, scores, "bla", 2 );
 	return 0;
 }
