@@ -22,7 +22,6 @@ int intro()
     displayline("  [2] Join Game");
     displayline("");
     displayquestion("Choose an option (enter \"1\" or \"2\"): ");
-    fflush(stdout);
     fgets(input, BUFFER_SIZE, stdin);
 
     if(!strncmp(input,"1",1))
@@ -95,7 +94,6 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   char input[BUFFER_SIZE];
   
   displayquestion("Enter a letter: ");
-  fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
   input[1] = 0;
 
@@ -191,6 +189,7 @@ int displayquestion(char * toprint) { //same as displaylie(), but for when you w
   }
   strncpy(spacer,toprint,LEN - 1);
   printf("\n   %s", spacer);
+  fflush(stdout);
   return 0;
 }
 
