@@ -95,27 +95,26 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
 
   return 0;
 }
-/*
+
 //TESTING
-int main()
-{
-  intro();
+// int main()
+// {
+//   intro();
 
-  int scores[3];
+//   int scores[3];
 
-  scores[0] = 3;
-  scores[1] = 5;
-  scores[2] = 4;
+//   scores[0] = 3;
+//   scores[1] = 5;
+//   scores[2] = 4;
 
-  char buffer[BUFFER_SIZE];
 
-  waiting(2019, 3, scores, "bla", 2, buffer );
-  printf("%s\n", buffer);
-  playround(2019, 3, scores, "bla", 2 );
+//   waiting(2019, 3, scores, "bla", 2 );
 
-  return 0;
-}
-*/
+//   playround(2019, 3, scores, "bla", 2 );
+
+//   return 0;
+// }
+
 
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
