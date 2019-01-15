@@ -139,26 +139,31 @@ int winround( int server_socket) {
   int err = read( server_socket, buffer, sizeof(buffer) );
   printf("Player %s lost the round.\n", buffer);
   enterblock();
+  return 0;
 }
 
 int loseround() {
   printf("You lost the round.\n");
   enterblock();
+  return 0;
 }
 
 int wingame() {
-  printf("You won the game.\n", buffer);
+  printf("You won the game.\n");
   enterblock();
+  return 0;
 }
 
 int losegame() {
   printf("You lost the game.\n");
   enterblock();
+  return 0;
 }
 
 int enterblock() { // "press enter to continue"
   printf("Press Enter to continue...\n");
   char input[BUFFER_SIZE];
-  return fgets(input, BUFFER_SIZE, stdin);
+  fgets(input, BUFFER_SIZE, stdin);
+  return 0;
 }
 
