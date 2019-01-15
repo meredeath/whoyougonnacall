@@ -96,25 +96,6 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   return 0;
 }
 
-//TESTING
-// int main()
-// {
-//   intro();
-
-//   int scores[3];
-
-//   scores[0] = 3;
-//   scores[1] = 5;
-//   scores[2] = 4;
-
-
-//   waiting(2019, 3, scores, "bla", 2 );
-
-//   playround(2019, 3, scores, "bla", 2 );
-
-//   return 0;
-// }
-
 
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
@@ -165,4 +146,49 @@ int enterblock() { // "press enter to continue"
   fgets(input, BUFFER_SIZE, stdin);
   return 0;
 }
+
+int displayheader() {
+printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
+return 0;
+//"*  " + 63 characters + "  *"
+}
+
+int displayline(char * toprint) { //toprint must be shorter than 64 (not null) characters
+  int LEN = 63;
+  char spacer[LEN + 1];
+  for(int i = 0;i < LEN;i++) {
+    spacer[i]=' ';
+  }
+  spacer[LEN]=0;
+  int tocopy = LEN;
+  if(strlen(toprint)<LEN ) {
+    tocopy = strlen(toprint);
+  }
+  strncpy(spacer,toprint,tocopy);
+  printf("*  %s  *\n", spacer);
+  return 0;
+}
+
+
+//TESTING
+// int main()
+// {
+//   displayheader();
+//   displayline("blahasdfasdfasdf");
+//   displayline("012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567");
+//   intro();
+
+//   int scores[3];
+
+//   scores[0] = 3;
+//   scores[1] = 5;
+//   scores[2] = 4;
+
+
+//   waiting(2019, 3, scores, "bla", 2 );
+
+//   playround(2019, 3, scores, "bla", 2 );
+//   return 0;
+// }
+
 
