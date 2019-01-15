@@ -8,7 +8,11 @@ int printstate(int numplayers, int scores[], char * letters, int activeplayer); 
 
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer);
 
-int winround();
+int normround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer);
 
-int loseround();
+int winround(); // reads from server the index of the loser, displays message to user
+
+int loseround(); // displays message to user
+
+int enterblock(); // "press enter to continue"
 

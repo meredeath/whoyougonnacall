@@ -119,6 +119,7 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
   printf("You are the first round!\n");
+  enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
     
   return 0;
@@ -127,8 +128,27 @@ int firstplay(int server_socket, int numplayers, int scores[], char * letters, i
 int normround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
   printf("It is your round!\n");
+  enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
     
   return 0;
+}
+
+int winround() {
+  char buffer[BUFFER_SIZE];
+  int err = read( server_socket, buffer, sizeof(buffer) );
+  printf("Player %s lost the round.\n", buffer);
+  enterblock();
+}
+
+int loseround() {
+  printf("You lost the round.\n");
+  enterblock();
+}
+
+int enterblock() { // "press enter to continue"
+  printf("Press Enter to continue...\n");
+  char input[BUFFER_SIZE];
+  return fgets(input, BUFFER_SIZE, stdin);
 }
 
