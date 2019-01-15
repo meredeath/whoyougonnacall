@@ -1,4 +1,5 @@
 #include "networking.h"
+#include "bsearch.h"
 
 int listen_socket;
 int f;
@@ -80,6 +81,9 @@ int main()
 	  // adds a letter to the letters in play
 	  read( players[curr_player], buffer, sizeof(buffer) );
 	  strcat( inplay_letters, buffer );
+
+	  // change curr players
+	  curr_player = (curr_player + 1) % num_players;
 	}
       else
 	{
@@ -99,12 +103,28 @@ int main()
 	  // adds a letter to the letters in play
 	  read( players[curr_player], buffer, sizeof(buffer) );
 	  strcat( inplay_letters, buffer );
-	  
+
+	  // maybe change position later
 	  prev_player = (prev_player + 1) % num_players;
+
+	  printf("letters in play: %s\n", inplay_letters);
+	  // bsearch
+	  if (binsearch(inplay_letters))
+	    {
+	      // it is a word
+	      // curr is accused of word
+	      printf("found word: %s", inplay_letters);
+	    }
+	  else
+	    {
+	      // change curr players
+	      curr_player = (curr_player + 1) % num_players;
+	    }
+	  
 	}
 
-      // change curr players
-      curr_player = (curr_player + 1) % num_players;
+      
+      
       
     }
       
@@ -124,8 +144,8 @@ int waiting(int curr)
 	  write( players[i], buffer, sizeof(buffer) );
 
 	  // stand in for waiting
-	  sprintf( buffer, "standin" );
-	  write( players[i], buffer, sizeof(buffer) );
+	  //sprintf( buffer, "standin" );
+	  //write( players[i], buffer, sizeof(buffer) );
 	}
     }
 }

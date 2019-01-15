@@ -3,14 +3,13 @@
 #include <string.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <string.h>
 #include <errno.h>
 
 #include "dict.h"
 
 // finished binary search but still have to change function name
 // and return statement
-int main()
+int binsearch(char * your_word)
 {
   // key_t key;
   int shmid;
@@ -28,14 +27,13 @@ int main()
   while (high >= low)
     {
       counter++;
-      printf("counter: %d\n", counter);
+      // printf("counter: %d\n", counter);
       char * my_word = (* data)[low + (high - low) / 2];
-      char * your_word = "kitty";
       
       if (strcmp(my_word, your_word) == 0)
 	{
 	  printf("The two words %s and %s are equal. %d iterations\n", my_word, your_word, counter);
-	  return 0;
+	  return 1;
 	}
       else if (strcmp(my_word, your_word) < 0)
 	{
@@ -50,4 +48,5 @@ int main()
     }
   
   printf("high: %d; low: %d\n", high, low); 
+  return 0;
 }

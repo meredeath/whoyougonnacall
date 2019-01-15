@@ -62,6 +62,7 @@ int waiting(int server_socket, int numplayers, int scores[], char * letters, int
   printstate(numplayers, scores, letters, activeplayer);
   printf("\nWaiting for Player %d...\n", activeplayer);
 
+  /*
   char buffer[BUFFER_SIZE];
   int err = read( server_socket, buffer, sizeof(buffer) );
 
@@ -70,7 +71,7 @@ int waiting(int server_socket, int numplayers, int scores[], char * letters, int
       strncpy(buffer, "error", BUFFER_SIZE);
       return -1;
     }
-  
+  */
   return 0;
 }
 
