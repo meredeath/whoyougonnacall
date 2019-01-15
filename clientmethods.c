@@ -146,6 +146,16 @@ int loseround() {
   enterblock();
 }
 
+int wingame() {
+  printf("You won the game.\n", buffer);
+  enterblock();
+}
+
+int losegame() {
+  printf("You lost the game.\n");
+  enterblock();
+}
+
 int enterblock() { // "press enter to continue"
   printf("Press Enter to continue...\n");
   char input[BUFFER_SIZE];

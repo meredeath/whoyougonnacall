@@ -14,5 +14,9 @@ int winround(); // reads from server the index of the loser, displays message to
 
 int loseround(); // displays message to user
 
+int wingame();
+
+int losegame();
+
 int enterblock(); // "press enter to continue"
 
