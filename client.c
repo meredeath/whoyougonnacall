@@ -8,11 +8,6 @@ int main(int argc, char **argv) {
   int server_socket;
   char buffer[BUFFER_SIZE];
 
-  // welcome
-  clear;
-  printf("Welcome to GHOST!\n");
-  printf("Here are your options:\n");
-
   // allow them to join or read instructions
   intro();
 
