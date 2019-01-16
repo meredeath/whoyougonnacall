@@ -193,6 +193,14 @@ int displayquestion(char * toprint) { //same as displaylie(), but for when you w
   return 0;
 }
 
+int gameover() {
+  displayheader();
+  displayline("The game is over.");
+  displayline("");
+  displayline("Good bye. Thanks for playing. Move on with your life.");
+  return 0;
+}
+
 
 //TESTING
 // int main()

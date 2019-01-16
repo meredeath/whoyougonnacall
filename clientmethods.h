@@ -26,4 +26,5 @@ int displayline(char * toprint); // toprint must be shorter than 64 (not null) c
 
 int displayquestion(char * toprint); //same as displaylie(), but for when you want user input after it is printed
 
+int gameover(); // tells the user the server shut them down.
 
