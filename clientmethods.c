@@ -31,7 +31,6 @@ int intro()
     	  displayline("Insert Instructions Here"); // What do we want to put here?
         enterblock();
 
-    	  fgets(input, BUFFER_SIZE, stdin);
     	  continue; // goes back to main menu
     	}
       
@@ -93,7 +92,8 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   
   char input[BUFFER_SIZE];
   
-  displayquestion("Enter a letter: ");
+  displayline("It is your turn.");
+  displayquestion("Enter a letter to play or a \"0\" to challenge: ");
   fgets(input, BUFFER_SIZE, stdin);
   input[1] = 0;
 
@@ -101,7 +101,20 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
     input[0] = input[0] + 'a' - 'A';
   }
 
-  write( server_socket, input, sizeof(input) ); // should add some formatting / message standardization
+  while (!(input[0] == '0' or (input[0]>='a' && input[0]<='z'))) {
+    printstate( numplayers, scores, letters, activeplayer );
+      
+    displayline("It is your turn.");
+    displayline("Please enter VALID input.");
+    displayquestion("Enter a letter to play or a \"0\" to challenge: ");
+    fgets(input, BUFFER_SIZE, stdin);
+    input[1] = 0;
+    if (input[0]>='A' && input[0]<='Z') {
+      input[0] = input[0] + 'a' - 'A';
+    }
+  }
+
+  write( server_socket, input, sizeof(input) );
 
   return 0;
 }
@@ -199,6 +212,13 @@ int gameover() {
   displayline("");
   displayline("Good bye. Thanks for playing. Move on with your life.");
   return 0;
+}
+
+int challenge(int server_socket, int numplayers, int scores[], char * letters, int activeplayer) {
+  printstate( numplayers, scores, letters, activeplayer );
+  displayline("");
+  displayline("You have been challenged!");
+  displayquestion("Complete the word: ")
 }
 
 
