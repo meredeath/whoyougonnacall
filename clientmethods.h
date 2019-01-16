@@ -28,6 +28,6 @@ int displayquestion(char * toprint); //same as displaylie(), but for when you wa
 
 int gameover(); // tells the user the server shut them down.
 
-int challenge(int server_socket, int numplayers, int scores[], char * letters, int activeplayer); // tells user that they have been challenged, asks for completed word and sends to server
+int challenge(int server_socket, int numplayers, int scores[], char * letters, int activeplayer); // tells user that they have been challenged, asks for completed word and sends the word to the server
 
 

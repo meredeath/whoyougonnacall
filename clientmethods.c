@@ -218,7 +218,17 @@ int challenge(int server_socket, int numplayers, int scores[], char * letters, i
   printstate( numplayers, scores, letters, activeplayer );
   displayline("");
   displayline("You have been challenged!");
-  displayquestion("Complete the word: ")
+  char * temp;
+  sprintf(temp, "Complete the word: %s", letters);
+  displayquestion(temp);
+  char input[BUFFER_SIZE];
+  fgets(input, BUFFER_SIZE, stdin);
+  input[strlen(input) - 1] = 0;
+  char toserver[BUFFER_SIZE + strlen(letters)];
+  strcpy(toserver, letters);
+  strcat(toserver, input);
+  write( server_socket, toserver, sizeof(toserver) );
+  return 0;
 }
 
 
