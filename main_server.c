@@ -36,7 +36,7 @@ int main()
       players[i] = server_connect(listen_socket);
       player_points[i] = 0;
       
-      // sprintf(buffer, "Welcome Player %d! Please patiently wait for all other players to connect.\n", i);
+      printf(buffer, "Welcome Player %d! Please patiently wait for all other players to connect.\n", i);
       
       // write( players[i], buffer, sizeof(buffer) );
     }
