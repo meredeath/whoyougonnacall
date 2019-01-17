@@ -116,11 +116,12 @@ int main()
 	      print_scores(num_players);//print the scores
 
 	      //what is this
+	      /*
 	      sprintf( buffer, " " );
 	      write( players[i], buffer, sizeof(buffer) );
-	  }
+	      */
 	      
-	  for (int i = 0; i < num_players; i++){
+	      for (int i = 0; i < num_players; i++){
 		  if (curr_player == i){
 		      sprintf( buffer, "lose round" );
 		      write( players[i], buffer, sizeof(buffer) );
@@ -142,8 +143,8 @@ int main()
 		    sprintf( buffer, "%d", curr_player );
 		    write( players[i], buffer, sizeof(buffer) );
 		  }
-	  }      
-	  else{
+	      }      
+	  }else{
 	      // word was NOT formed, so keep playing. change curr players.
 	      curr_player = (curr_player + 1) % num_players;
 	  }
@@ -169,11 +170,17 @@ int print_inplay(int cur, char *letters){
   }
 }
 
+//not needed, but I need to figure out how to shorten code in normal round and first round
 int clear_inplay(char *letters){
   sprintf( buffer, " " );
-  if(write( players[i], buffer, sizeof(buffer)) == -1){
-    printf("error on clearing inplay letters %d: %s\n", errno, strerror(errno);
+  /*
+  for(int i = 0; i<NUM_PLAYERS; i++){
+    if(write( players[i], buffer, sizeof(buffer)) == -1){
+      printf("error on clearing inplay letters %d: %s\n", errno, strerror(errno);
+	     }
   }
+  */
+  return 0;
 }
 
 void print_scores(int numplayers){
