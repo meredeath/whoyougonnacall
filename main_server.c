@@ -3,49 +3,43 @@
 #include <signal.h>
 
 int listen_socket;
-int f;
-  
+int f; //what is f?
 int players[NUM_PLAYERS];
 int player_points[NUM_PLAYERS];
 char buffer[BUFFER_SIZE];
-
 int num_players;
 
-int waiting(int wait);
-static void sighandler(int signo)
-{
-  if (signo == SIGINT)
-  {
-    for (int i = 0; i < num_players; i++)
-      {
+static void sighandler(int signo){
+//will not let players close the server with SIGINT, because then the sockets can't close
+  if (signo == SIGINT){
+    for (int i = 0; i < num_players; i++){
 	shutdown(players[i], 2);
-      }
+    }
   }
 }
 
 int main()
 {
+  //handle C^ signal
   signal(SIGINT, sighandler);
-  
+
+  //setting up player # and listening socket in the server
   num_players = NUM_PLAYERS;
   listen_socket = server_setup();
-  
-  
-  for (int i = 0; i < num_players; i++)
-    {
-      players[i] = server_connect(listen_socket);
-      player_points[i] = 0;
-      
-      printf(buffer, "Welcome Player %d! Please patiently wait for all other players to connect.\n", i);
-      
-      // write( players[i], buffer, sizeof(buffer) );
-    }
+
+  //connect players to server
+  for (int i = 0; i < num_players; i++){
+    players[i] = server_connect(listen_socket);
+    player_points[i] = 0;  
+      //printf(buffer, "Welcome Player %d! Please patiently wait for all other players to connect.\n", i);
+      // write(players[i], buffer, sizeof(buffer) );
+  }
   
   for (int i = 0; i < num_players; i++)
     {
       sprintf( buffer, "%d", i );
       printf("%s\n", buffer);
-      write( players[i], buffer, sizeof(buffer) );
+      write( players[i], buffer, sizeof(buffer));
       
       sprintf( buffer, "%d", num_players );
       printf("%s\n", buffer);
@@ -56,21 +50,13 @@ int main()
   int prev_player = 0;
   int curr_player = 0;
 
+  //the word so far in the current round
   char inplay_letters[BUFFER_SIZE];
   
   while (1)
     {
       // taking in scores first
-      printf("\n\nPrinting scores\n");
-      for (int i = 0; i < num_players; i++)
-	{
-	  for (int j = 0; j < num_players; j++)
-	    {
-	      printf("Player %d score: %d\n", i, j);
-	      sprintf( buffer, "%d", player_points[j] );
-	      write( players[i], buffer, sizeof(buffer) );
-	    }
-	}
+      print_scores(num_players);
       
       if (curr_player == prev_player)
 	{
@@ -128,15 +114,7 @@ int main()
 	      // curr is accused of word
 	      printf("found word: [%s]", inplay_letters);
 
-	      printf("\n\nPrinting scores\n");
-	      for (int i = 0; i < num_players; i++)
-		{
-		  for (int j = 0; j < num_players; j++)
-		    {
-		      printf("Player %d score: %d\n", i, j);
-		      sprintf( buffer, "%d", player_points[j] );
-		      write( players[i], buffer, sizeof(buffer) );
-		    }
+	      print_scores(num_players);//print the scores
 
 		  sprintf( buffer, " " );
 		  write( players[i], buffer, sizeof(buffer) );
@@ -181,6 +159,23 @@ int main()
       
     }
       
+}
+
+int write_num_to_player(int k){
+  sprintf(buffer, "%d", k );
+  printf("%s\n", buffer);
+  write(players[k], buffer, sizeof(buffer));
+}
+
+void print_scores(int numplayers){
+  printf("\n\nPrinting scores\n");
+  for(int i = 0; i < num_players; i++){
+    for (int j = 0; j < num_players; j++){
+      printf("Player %d score: %d\n", i, j);
+      sprintf( buffer, "%d", player_points[j] );
+      write( players[i], buffer, sizeof(buffer) );
+    }
+  }
 }
 
 int waiting(int curr)

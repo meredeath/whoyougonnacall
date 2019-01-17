@@ -101,7 +101,7 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
     input[0] = input[0] + 'a' - 'A';
   }
 
-  while (!(input[0] == '0' or (input[0]>='a' && input[0]<='z'))) {
+  while (!(input[0] == '0' || (input[0]>='a' && input[0]<='z'))) {
     printstate( numplayers, scores, letters, activeplayer );
       
     displayline("It is your turn.");
