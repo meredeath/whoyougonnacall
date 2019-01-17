@@ -12,6 +12,8 @@
 #ifndef NETWORKING_H
 #define NETWORKING_H
 
+#define BUFFER_SIZE 256
+#define NUM_PLAYERS 2
 #define PORT "9001"
 #define TEST_IP "127.0.0.1"
 

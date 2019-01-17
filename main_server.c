@@ -36,8 +36,10 @@ int main()
       // write(players[i], buffer, sizeof(buffer) );
   }
   
-  for (int i = 0; i < num_players; i++)
-    {
+  //telling players what player number they are
+  for (int i = 0; i < num_players; i++){
+      write_num_to_player(i);
+      /*
       sprintf( buffer, "%d", i );
       printf("%s\n", buffer);
       write( players[i], buffer, sizeof(buffer));
@@ -45,23 +47,22 @@ int main()
       sprintf( buffer, "%d", num_players );
       printf("%s\n", buffer);
       write( players[i], buffer, sizeof(buffer) );
-    }
+      */
+  }
 
-    
+  //setting up current player/prev player for challenge purposes
   int prev_player = 0;
   int curr_player = 0;
 
   //the word so far in the current round
   char inplay_letters[BUFFER_SIZE];
   
-  while (1)
-    {
-      // taking in scores first
+  while (1){
+      //printing player scores
       print_scores(num_players);
-      
-      if (curr_player == prev_player)
-	{
-	  // first play
+
+      //if this is the first round
+      if (curr_player == prev_player){
 	  
 	  // give to them the letters in play
 	  sprintf( buffer, " " );
@@ -82,16 +83,13 @@ int main()
 	  read( players[curr_player], buffer, sizeof(buffer) );
 	  strcpy( inplay_letters, buffer );
 
-	  // change curr players
+	  // change curr player to next in turn
 	  curr_player = (curr_player + 1) % num_players;
-	}
-      else
-	{
-	  // not equal therefore normal round
+      }else{
+	  // normal round
 	  
 	  // give to them the letters in play
-	  sprintf( buffer, "%s", inplay_letters );
-	  write( players[curr_player], buffer, sizeof(buffer) );
+	print_inplay(curr_player, inplay_letters);
 
 	  // signals to every player other than current to wait
 	  waiting(curr_player);
@@ -107,65 +105,75 @@ int main()
 	  // maybe change position later
 	  prev_player = (prev_player + 1) % num_players;
 
-	  printf("letters in play: [%s]\n", inplay_letters);
+	  //printf("letters in play: [%s]\n", inplay_letters); why is this needed
+
 	  // bsearch
-	  if (binsearch(inplay_letters))
-	    {
+	  if (binsearch(inplay_letters)){
 	      // it is a word
 	      // curr is accused of word
 	      printf("found word: [%s]", inplay_letters);
 
 	      print_scores(num_players);//print the scores
 
-		  sprintf( buffer, " " );
-		  write( players[i], buffer, sizeof(buffer) );
-		}
-
+	      //what is this
+	      sprintf( buffer, " " );
+	      write( players[i], buffer, sizeof(buffer) );
+	  }
 	      
-	      for (int i = 0; i < num_players; i++)
-		{
-		  if (curr_player == i)
-		    {
+	  for (int i = 0; i < num_players; i++){
+		  if (curr_player == i){
 		      sprintf( buffer, "lose round" );
 		      write( players[i], buffer, sizeof(buffer) );
 
 		      // player gains a point for losing
 		      player_points[i] += 1;
 
-		      if (player_points[i] == 5)
-		        {
+		      //if player has lost 5 times, they are kicked out
+		      if (player_points[i] == 5){
 			  // write end condition
 			  // and break out
 			  // start a new game
-			}
-		    }
-		  else
-		    {
-		      sprintf( buffer, "win round" );
-		      write( players[i], buffer, sizeof(buffer) );
+		      }
+		  }else{
+		    //if you didn't lose, you won because you survived
+		    sprintf( buffer, "win round" );
+		    write( players[i], buffer, sizeof(buffer) );
 
-		      sprintf( buffer, "%d", curr_player );
-		      write( players[i], buffer, sizeof(buffer) );
-		    }
-		}
-	      
-	    }
-	  else
-	    {
-	      // change curr players
+		    sprintf( buffer, "%d", curr_player );
+		    write( players[i], buffer, sizeof(buffer) );
+		  }
+	  }      
+	  else{
+	      // word was NOT formed, so keep playing. change curr players.
 	      curr_player = (curr_player + 1) % num_players;
-	    }
+	  }
 	  
-	}
+      }//closing if normalround/firstround if
       
-    }
-      
-}
+  }//closing while loop
+  
+}//closing main
 
 int write_num_to_player(int k){
   sprintf(buffer, "%d", k );
   printf("%s\n", buffer);
-  write(players[k], buffer, sizeof(buffer));
+  if (write(players[k], buffer, sizeof(buffer)) == -1){
+    printf("error %d: %s\n", errno, strerror(errno));
+  }
+}
+
+int print_inplay(int cur, char *letters){
+  sprintf(buffer, "%s", letters );
+  if (write( players[cur], buffer, sizeof(buffer)) == -1){
+    printf("error %d: %s\n", errno, strerror(errno));
+  }
+}
+
+int clear_inplay(char *letters){
+  sprintf( buffer, " " );
+  if(write( players[i], buffer, sizeof(buffer)) == -1){
+    printf("error on clearing inplay letters %d: %s\n", errno, strerror(errno);
+  }
 }
 
 void print_scores(int numplayers){
