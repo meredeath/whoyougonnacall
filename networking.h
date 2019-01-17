@@ -12,8 +12,6 @@
 #ifndef NETWORKING_H
 #define NETWORKING_H
 
-#define NUM_PLAYERS 2
-#define BUFFER_SIZE 256
 #define PORT "9001"
 #define TEST_IP "127.0.0.1"
 
@@ -21,8 +19,5 @@ void error_check(int i, char *s);
 int server_setup();
 int server_connect(int sd);
 int client_setup(char * server);
-void print_scores(int numplayers);
-int waiting(int curr);
-static void sighandler(int signo);
 
 #endif

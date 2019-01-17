@@ -1,5 +1,6 @@
 #include "networking.h"
 #include "bsearch.h"
+#include "main_server.h"
 #include <signal.h>
 
 int listen_socket;

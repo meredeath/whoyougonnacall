@@ -3,7 +3,7 @@ all: client server
 server: main_server.o networking.o bsearch.o
 	gcc -o server main_server.o networking.o bsearch.o
 
-main_server.o: main_server.c networking.h bsearch.h
+main_server.o: main_server.c networking.h bsearch.h main_server.h
 	gcc -c main_server.c
 
 client: client.o networking.o
