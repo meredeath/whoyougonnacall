@@ -7,7 +7,7 @@
 void print_scores(int numplayers);
 int waiting(int curr);
 static void sighandler(int signo);
-int write_num_to_player(int k);
+int write_num_to_player(int num, int player);
 int print_inplay(int cur, char *letters);
 int clean_inplay(char *letters);
 

@@ -19,8 +19,7 @@ static void sighandler(int signo){
   }
 }
 
-int main()
-{
+int main(){
   //handle C^ signal
   signal(SIGINT, sighandler);
 
@@ -38,16 +37,17 @@ int main()
   
   //telling players what player number they are
   for (int i = 0; i < num_players; i++){
-      write_num_to_player(i);
-      /*
-      sprintf( buffer, "%d", i );
-      printf("%s\n", buffer);
-      write( players[i], buffer, sizeof(buffer));
+    //write_num_to_player(i,i);
+    //write_num_to_player(num_players, i);
+
+    
+    sprintf( buffer, "%d", i );
+    printf("%s\n", buffer);
+    write( players[i], buffer, sizeof(buffer));
       
-      sprintf( buffer, "%d", num_players );
-      printf("%s\n", buffer);
-      write( players[i], buffer, sizeof(buffer) );
-      */
+    sprintf( buffer, "%d", num_players );
+    printf("%s\n", buffer);
+    write( players[i], buffer, sizeof(buffer) ); 
   }
 
   //setting up current player/prev player for challenge purposes
@@ -105,7 +105,7 @@ int main()
 	  // maybe change position later
 	  prev_player = (prev_player + 1) % num_players;
 
-	  //printf("letters in play: [%s]\n", inplay_letters); why is this needed
+	  printf("letters in play: [%s]\n", inplay_letters); why is this needed
 
 	  // bsearch
 	  if (binsearch(inplay_letters)){
@@ -115,11 +115,9 @@ int main()
 
 	      print_scores(num_players);//print the scores
 
-	      //what is this
-	      /*
+	      //what is this    
 	      sprintf( buffer, " " );
-	      write( players[i], buffer, sizeof(buffer) );
-	      */
+	      write( players[i], buffer, sizeof(buffer) );     
 	      
 	      for (int i = 0; i < num_players; i++){
 		  if (curr_player == i){
@@ -155,10 +153,10 @@ int main()
   
 }//closing main
 
-int write_num_to_player(int k){
-  sprintf(buffer, "%d", k );
+int write_num_to_player(int num, int player){
+  sprintf(buffer, "%d", num);
   printf("%s\n", buffer);
-  if (write(players[k], buffer, sizeof(buffer)) == -1){
+  if (write(players[player], buffer, sizeof(buffer)) == -1){
     printf("error %d: %s\n", errno, strerror(errno));
   }
 }

@@ -3,7 +3,7 @@
 
 #define clear printf("\033[H\033[J")
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv){
 
   int server_socket;
   char buffer[BUFFER_SIZE];
@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
     server_socket = client_setup( TEST_IP );
 
   printf("connected to server\n");
-  printf("Waiting for other players to come join.");
+  printf("Waiting for other players to come join.\n");
   
   int me = 0;
   
