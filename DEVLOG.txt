@@ -29,3 +29,9 @@ Tuesday 1/15/19 -- day 18
  * more client functions (Milan)
  * server stuff (Fabiha)
  * interface (Milan)
+ 
+Wednesday 1/16/19 -- day 19
+ * updated client functions for challenges (Milan)
+
+Thursday 1/17/19 -- day 20
+ * 
