@@ -32,6 +32,9 @@ Tuesday 1/15/19 -- day 18
  
 Wednesday 1/16/19 -- day 19
  * updated client functions for challenges (Milan)
+ * added new .h file for server program (Meredith)
+ * added new functions in server program that consolidate repeated code (Meredith)
+ * cleaned and commented server code (Meredith)
 
 Thursday 1/17/19 -- day 20
  * 
