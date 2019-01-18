@@ -1,12 +1,18 @@
+
 #include "networking.h"
-#include "clientmethods.c"
+#include "clientmethods.h"
 
 #define clear printf("\033[H\033[J")
 
-int main(int argc, char **argv){
+int main(int argc, char **argv) {
 
   int server_socket;
   char buffer[BUFFER_SIZE];
+
+  // welcome
+  clear;
+  printf("Welcome to GHOST!\n");
+  printf("Here are your options:\n");
 
   // allow them to join or read instructions
   intro();
@@ -18,7 +24,7 @@ int main(int argc, char **argv){
     server_socket = client_setup( TEST_IP );
 
   printf("connected to server\n");
-  printf("Waiting for other players to come join.\n");
+  printf("Waiting for other players to come join.");
   
   int me = 0;
   
@@ -87,7 +93,7 @@ int main(int argc, char **argv){
       // waiting
       if (strcmp(buffer, "wait") == 0)
 	{
-	  waiting( num_players, scores, letters,  me);
+	  waiting( server_socket, num_players, scores, letters,  me);
 	}
     }
   
@@ -95,9 +101,7 @@ int main(int argc, char **argv){
     for (int i = 0; i < 2; i++)
     {
       read( server_socket, buffer, sizeof(buffer) );
-
       clear;
-
       printf("%s", buffer);
       fflush(stdout);
     }
@@ -105,13 +109,12 @@ int main(int argc, char **argv){
   while (1)
     {
       read( server_socket, buffer, sizeof(buffer) );
-
       if ( strcmp( buffer, "first play" ) )
 	{
 	  
 	}
     }
-    
+    /*
   // intro
   // *  ____________________
   // * |
@@ -124,8 +127,6 @@ int main(int argc, char **argv){
   // * | [2] join game
   // * |
   // * | Input: _
-
-
   // round_face0
   // *  ____________________
   // * |
@@ -138,7 +139,6 @@ int main(int argc, char **argv){
   // * | [2] input a letter
   // * |
   // * | Input: _
-
   // round_face1
   // *  ____________________
   // * |
@@ -150,8 +150,6 @@ int main(int argc, char **argv){
   // * | 
   // * | Input: _
   // * | 
-
-
   // waiting
   // *  ____________________
   // * |
@@ -163,7 +161,6 @@ int main(int argc, char **argv){
   // * | 
   // * | 
   // * | 
-
   '''
   for (int i = 0; i < 2; i++)
     {
@@ -178,7 +175,6 @@ int main(int argc, char **argv){
       read( server_socket, buffer, sizeof(buffer) );
       printf("%s", buffer);
       fflush(stdout);
-
       read( server_socket, buffer, sizeof(buffer) );
       clear;
       printf("%s", buffer);
@@ -191,7 +187,7 @@ int main(int argc, char **argv){
       
     }
   '''
-  
+  /*
   while (1) {
     printf("enter data: ");
     fgets(buffer, sizeof(buffer), stdin);

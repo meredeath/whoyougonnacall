@@ -19,34 +19,47 @@ int binsearch(char * your_word)
   // key = ftok("mykey", 'f');
   shmid = shmget(DICT_ARR_KEY, NUM_WORDS * MAX_WORD_LEN * sizeof(char), 0644 | IPC_CREAT);
   data = shmat(shmid, (void *) 0, SHM_RDONLY);
+  /*
+  int counter = 81520 - 1;
+
+  while(counter > 80000)
+    {
+      printf("%s\n", (* data)[counter]);
+      counter--;
+    }
+  */
+  
 
   int high = NUM_WORDS - 1;
   int low = 0;
   int counter = 0;
   
-  while (high >= low)
+  while (low <= high)
     {
       counter++;
       // printf("counter: %d\n", counter);
-      char * my_word = (* data)[low + (high - low) / 2];
+      char * my_word = (* data)[(int) ((high + low) / 2)];
       
-      if (strcmp(my_word, your_word) == 0)
+      if (strcmp(my_word, your_word) > 0)
 	{
-	  printf("The two words %s and %s are equal. %d iterations\n", my_word, your_word, counter);
-	  return 1;
+	  // looking too high
+	  printf("At word: [%s], too high\n", my_word);
+	  high = (int) ((high + low) / 2 - 1);
 	}
       else if (strcmp(my_word, your_word) < 0)
 	{
 	  // looking too low
-	  low = low + (high - low) / 2 + 1;
+	  printf("At word: [%s], too low\n", my_word);
+	  low = (int) ((high + low) / 2 + 1);
 	}
       else
 	{
-	  // looking too high
-	  high = low + (high - low) /2 - 1;
+	  printf("The two words %s and %s are equal. %d iterations\n", my_word, your_word, counter);
+	  return 1;
 	}
     }
   
   printf("high: %d; low: %d\n", high, low); 
   return 0;
+  
 }

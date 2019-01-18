@@ -4,4 +4,4 @@
 
 #define DICT_FILENAME "dictall.txt"
 
-#define NUM_WORDS 100000
+#define NUM_WORDS 81520

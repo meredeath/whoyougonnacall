@@ -4,7 +4,6 @@
 #include "clientmethods.h"
 #include "networking.h"
 
-#define LEN 63 //don't change this
 
 #define clear printf("\033[H\033[J")
 
@@ -12,70 +11,60 @@ int intro()
 { // prints stuff
   char input[BUFFER_SIZE];
 
-  while(1) {
-    displayheader();
+  while(1)
+    {
+      clear;
 
-    displayline("Welcome to GHOST!");
-    displayline("Here are your options:");
-    displayline("");
-    displayline("  [1] Read Instructions");
-    displayline("  [2] Join Game");
-    displayline("");
-    displayquestion("Choose an option (enter \"1\" or \"2\"): ");
-    fgets(input, BUFFER_SIZE, stdin);
+      printf("Welcome to GHOST!\nHere are your options:\n\n[1] Read Instructions\n[2] Join Game\n\nChoose an option (enter \"1\" or \"2\"): ");
+      fflush(stdout);
+      fgets(input, BUFFER_SIZE, stdin);
 
-    if(!strncmp(input,"1",1))
-    	{
-    	  displayheader();
+      if(!strncmp(input,"1",1))
+	{
+	  clear;
 
-    	  displayline("Insert Instructions Here"); // What do we want to put here?
-        enterblock();
+	  printf("Insert Instructions Here\n"); // What do we want to put here?
+	  printf("Press Enter to return to the main menu.");
 
-    	  continue; // goes back to main menu
-    	}
+	  fgets(input, BUFFER_SIZE, stdin);
+	  continue; // goes back to main menu
+	}
       
-    if(!strncmp(input,"2",1)) {
-    	break;
-    	// should now go to wait after intro() is done
-    }
-    // trolling for idiots
-    clear;
-    printf("░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄\n░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄\n░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█\n░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█\n░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█\n█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█\n█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█\n░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█\n░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█\n░░░█░░██░░▀█▄▄▄█▄▄█▄████░█\n░░░░█░░░▀▀▄░█░░░█░███████░█\n░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█\n░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░█\n░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░█\n░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░█\n Follow directions\n");
-    break;
+      if(!strncmp(input,"2",1)) {
+	break;
+	// should now go to wait after intro() is done
+      }
+      
+      clear;
+      printf("░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄\n░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄\n░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█\n░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█\n░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█\n█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█\n█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█\n░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█\n░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█\n░░░█░░██░░▀█▄▄▄█▄▄█▄████░█\n░░░░█░░░▀▀▄░█░░░█░███████░█\n░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█\n░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░█\n░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░█\n░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░█\nPlease follow directions\n");
+      break;
   }
   return 0;
 }
 
 int printstate(int numplayers, int scores[], char * letters, int activeplayer)
 { // helper function
-  displayheader();
-  char * temp;
-  for(int i = 0; i < numplayers; i++) {
-    sprintf(temp, "Player %d's score: %d", i, scores[i]);
-    displayline(temp);
-  }
-
-  displayline("");
+  clear;
   
-  sprintf(temp, "Letters in play: %s_", letters);
-  displayline(temp);
+  for(int i = 0; i < numplayers; i++)
+    {
+      printf("Player %d's score: %d\n", i, scores[i]);
+    }
+  
+  printf("\nLetters in play: %s_\n", letters);
 
   return 0;
 }
 
-int waiting( int numplayers, int scores[], char * letters, int activeplayer)
+int waiting(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
   //block until receive message, return the message
   printstate(numplayers, scores, letters, activeplayer);
-  char * temp;
-  displayline("");
-  sprintf(temp, "Waiting for Player %d...", activeplayer);
-  displayline(temp);
+  printf("\nWaiting for Player %d...\n", activeplayer);
 
   /*
   char buffer[BUFFER_SIZE];
   int err = read( server_socket, buffer, sizeof(buffer) );
-
   if(err == -1)
     {
       strncpy(buffer, "error", BUFFER_SIZE);
@@ -92,8 +81,8 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   
   char input[BUFFER_SIZE];
   
-  displayline("It is your turn.");
-  displayquestion("Enter a letter to play or a \"0\" to challenge: ");
+  printf("\nEnter a letter: ");
+  fflush(stdout);
   fgets(input, BUFFER_SIZE, stdin);
   input[1] = 0;
 
@@ -101,144 +90,15 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
     input[0] = input[0] + 'a' - 'A';
   }
 
-  while (!(input[0] == '0' || (input[0]>='a' && input[0]<='z'))) {
-    printstate( numplayers, scores, letters, activeplayer );
-      
-    displayline("It is your turn.");
-    displayline("Please enter VALID input.");
-    displayquestion("Enter a letter to play or a \"0\" to challenge: ");
-    fgets(input, BUFFER_SIZE, stdin);
-    input[1] = 0;
-    if (input[0]>='A' && input[0]<='Z') {
-      input[0] = input[0] + 'a' - 'A';
-    }
-  }
-
-  write( server_socket, input, sizeof(input) );
+  write( server_socket, input, sizeof(input) ); // should add some formatting / message standardization
 
   return 0;
 }
-
-
-int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
-{
-  displayline("You are the first round!");
-  enterblock();
-  playround( server_socket, numplayers, scores, letters, activeplayer);
-    
-  return 0;
-}
-
-int normround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
-{
-  displayline("It is your round!");
-  enterblock();
-  playround( server_socket, numplayers, scores, letters, activeplayer);
-  return 0;
-}
-
-int winround( int server_socket) {
-  char buffer[BUFFER_SIZE];
-  int err = read( server_socket, buffer, sizeof(buffer) );
-  
-  char * temp;
-  sprintf(temp, "Player %s lost the round.", buffer);
-  displayline(temp);
-  enterblock();
-  return 0;
-}
-
-int loseround() {
-  displayline("You lost the round.");
-  enterblock();
-  return 0;
-}
-
-int wingame() {
-  displayline("You won the game.");
-  enterblock();
-  return 0;
-}
-
-int losegame() {
-  displayline("You lost the game.");
-  enterblock();
-  return 0;
-}
-
-int enterblock() { // "press enter to continue"
-  displayline("Press Enter to continue...");
-  char input[BUFFER_SIZE];
-  fgets(input, BUFFER_SIZE, stdin);
-  return 0;
-}
-
-int displayheader() {
-  clear;
-  printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
-  return 0;
-  // "*  " + 63 characters + "  *"
-}
-
-int displayline(char * toprint) { //toprint must be shorter than 64 (not null) characters
-  char spacer[LEN + 1];
-  for(int i = 0;i < LEN;i++) {
-    spacer[i]=' ';
-  }
-  spacer[LEN]=0;
-  int tocopy = LEN;
-  if(strlen(toprint)<LEN ) {
-    tocopy = strlen(toprint);
-  }
-  strncpy(spacer,toprint,tocopy);
-  printf("*  %s  *\n", spacer);
-  return 0;
-}
-
-int displayquestion(char * toprint) { //same as displaylie(), but for when you want user input after it is printed
-  char spacer[LEN];
-  for(int i = 0;i < LEN;i++) {
-    spacer[i]=0;
-  }
-  strncpy(spacer,toprint,LEN - 1);
-  printf("\n   %s", spacer);
-  fflush(stdout);
-  return 0;
-}
-
-int gameover() {
-  displayheader();
-  displayline("The game is over.");
-  displayline("");
-  displayline("Good bye. Thanks for playing. Move on with your life.");
-  return 0;
-}
-
-int challenge(int server_socket, int numplayers, int scores[], char * letters, int activeplayer) {
-  printstate( numplayers, scores, letters, activeplayer );
-  displayline("");
-  displayline("You have been challenged!");
-  char * temp;
-  sprintf(temp, "Complete the word: %s", letters);
-  displayquestion(temp);
-  char input[BUFFER_SIZE];
-  fgets(input, BUFFER_SIZE, stdin);
-  input[strlen(input) - 1] = 0;
-  char toserver[BUFFER_SIZE + strlen(letters)];
-  strcpy(toserver, letters);
-  strcat(toserver, input);
-  write( server_socket, toserver, sizeof(toserver) );
-  return 0;
-}
-
 
 //TESTING
 // int main()
 // {
-//   displayheader();
-//   displayline("blahasdfasdfasdf");
-//   displayline("012345670123456701234567012345670123456701234567012345670123456701234567012345670123456701234567");
-  // intro();
+//   intro();
 
 //   int scores[3];
 
@@ -250,7 +110,44 @@ int challenge(int server_socket, int numplayers, int scores[], char * letters, i
 //   waiting(2019, 3, scores, "bla", 2 );
 
 //   playround(2019, 3, scores, "bla", 2 );
+
 //   return 0;
 // }
 
 
+int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
+{
+  printf("You are the first round!\n");
+  enterblock();
+  playround( server_socket, numplayers, scores, letters, activeplayer);
+    
+  return 0;
+}
+
+int normround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
+{
+  printf("It is your round!\n");
+  enterblock();
+  playround( server_socket, numplayers, scores, letters, activeplayer);
+    
+  return 0;
+}
+
+int winround( int server_socket) {
+  char buffer[BUFFER_SIZE];
+  int err = read( server_socket, buffer, sizeof(buffer) );
+  printf("Player %s lost the round.\n", buffer);
+  enterblock();
+}
+
+int loseround() {
+  printf("You lost the round.\n");
+  enterblock();
+}
+
+char * enterblock() { // "press enter to continue"
+  printf("Press Enter to continue...\n");
+  char input[BUFFER_SIZE];
+  char * i = (char *) fgets(input, BUFFER_SIZE, stdin);
+  return i;
+}
