@@ -56,7 +56,7 @@ int printstate(int numplayers, int scores[], char * letters, int activeplayer)
   return 0;
 }
 
-int waiting(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
+int waiting(int numplayers, int scores[], char * letters, int activeplayer)
 {
   //block until receive message, return the message
   printstate(numplayers, scores, letters, activeplayer);
@@ -94,6 +94,30 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
 
   return 0;
 }
+
+int displayheader() {
+printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
+return 0;
+//"*  " + 63 characters + "  *"
+}
+
+int displayline(char * toprint) { //toprint must be shorter than 64 (not null) characters
+  int LEN = 63;
+  char spacer[LEN + 1];
+  for(int i = 0;i < LEN;i++) {
+    spacer[i]=' ';
+  }
+  spacer[LEN]=0;
+  int tocopy = LEN;
+  if(strlen(toprint)<LEN ) {
+    tocopy = strlen(toprint);
+  }
+  strncpy(spacer,toprint,tocopy);
+  printf("*  %s  *\n", spacer);
+  return 0;
+}
+
+
 
 //TESTING
 // int main()
@@ -138,16 +162,30 @@ int winround( int server_socket) {
   int err = read( server_socket, buffer, sizeof(buffer) );
   printf("Player %s lost the round.\n", buffer);
   enterblock();
+  return 0;
 }
 
 int loseround() {
   printf("You lost the round.\n");
   enterblock();
+  return 0;
 }
 
-char * enterblock() { // "press enter to continue"
+int wingame() {
+  printf("You won the game.\n");
+  enterblock();
+  return 0;
+}
+
+int losegame() {
+  printf("You lost the game.\n");
+  enterblock();
+  return 0;
+}
+
+int enterblock() { // "press enter to continue"
   printf("Press Enter to continue...\n");
   char input[BUFFER_SIZE];
-  char * i = (char *) fgets(input, BUFFER_SIZE, stdin);
-  return i;
+  fgets(input, BUFFER_SIZE, stdin);
+  return 0;
 }
