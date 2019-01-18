@@ -5,7 +5,7 @@ setup:
 	./a.out
 
 delete:
-	ipcrm -m 1245184
+	ipcrm -m 9764886
 
 test:
 	gcc test.c bsearch.c bsearch.h

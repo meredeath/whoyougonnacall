@@ -4,6 +4,7 @@
 #include "clientmethods.h"
 #include "networking.h"
 
+#define LEN 63 //don't change this
 
 #define clear printf("\033[H\033[J")
 
@@ -13,46 +14,64 @@ int intro()
 
   while(1)
     {
-      clear;
+      displayheader();
 
-      printf("Welcome to GHOST!\nHere are your options:\n\n[1] Read Instructions\n[2] Join Game\n\nChoose an option (enter \"1\" or \"2\"): ");
+      displayline("Welcome to GHOST!");
+      displayline("Here are your options:");
+      displayline("");
+      displayline("  [1] Read Instructions");
+      displayline("  [2] Join Game");
+      displayline("");
+      displayquestion("Choose an option (enter \"1\" or \"2\"): ");
       fflush(stdout);
       fgets(input, BUFFER_SIZE, stdin);
 
       if(!strncmp(input,"1",1))
+    	{
+    	  displayheader();
+
+    	  displayline("Insert Instructions Here"); // What do we want to put here?
+	  enterblock();
+
+    	  fgets(input, BUFFER_SIZE, stdin);
+    	  continue; // goes back to main menu
+    	}
+
+
+      if(!strncmp(input,"2",1))
 	{
-	  clear;
-
-	  printf("Insert Instructions Here\n"); // What do we want to put here?
-	  printf("Press Enter to return to the main menu.");
-
-	  fgets(input, BUFFER_SIZE, stdin);
-	  continue; // goes back to main menu
+	  break;
+	  // should now go to wait after intro() is done
 	}
-      
-      if(!strncmp(input,"2",1)) {
-	break;
-	// should now go to wait after intro() is done
-      }
-      
+      // trolling for idiots
       clear;
-      printf("░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄\n░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄\n░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█\n░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█\n░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█\n█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█\n█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█\n░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█\n░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█\n░░░█░░██░░▀█▄▄▄█▄▄█▄████░█\n░░░░█░░░▀▀▄░█░░░█░███████░█\n░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█\n░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░█\n░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░█\n░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░█\nPlease follow directions\n");
+      printf("░░░░▄▄▄▄▀▀▀▀▀▀▀▀▄▄▄▄▄▄\n░░░░█░░░░▒▒▒▒▒▒▒▒▒▒▒▒░░▀▀▄\n░░░█░░░▒▒▒▒▒▒░░░░░░░░▒▒▒░░█\n░░█░░░░░░▄██▀▄▄░░░░░▄▄▄░░░█\n░▀▒▄▄▄▒░█▀▀▀▀▄▄█░░░██▄▄█░░░█\n█▒█▒▄░▀▄▄▄▀░░░░░░░░█░░░▒▒▒▒▒█\n█▒█░█▀▄▄░░░░░█▀░░░░▀▄░░▄▀▀▀▄▒█\n░█▀▄░█▄░█▀▄▄░▀░▀▀░▄▄▀░░░░█░░█\n░░█░░▀▄▀█▄▄░█▀▀▀▄▄▄▄▀▀█▀██░█\n░░░█░░██░░▀█▄▄▄█▄▄█▄████░█\n░░░░█░░░▀▀▄░█░░░█░███████░█\n░░░░░▀▄░░░▀▀▄▄▄█▄█▄█▄█▄▀░░█\n░░░░░░░▀▄▄░▒▒▒▒░░░░░░░░░░█\n░░░░░░░░░░▀▀▄▄░▒▒▒▒▒▒▒▒▒▒░█\n░░░░░░░░░░░░░░▀▄▄▄▄▄░░░░░█\n Follow directions\n");
       break;
-  }
+
+    }
   return 0;
 }
 
 int printstate(int numplayers, int scores[], char * letters, int activeplayer)
 { // helper function
-  clear;
-  
-  for(int i = 0; i < numplayers; i++)
-    {
-      printf("Player %d's score: %d\n", i, scores[i]);
-    }
-  
-  printf("\nLetters in play: %s_\n", letters);
+  displayheader();
+  char temp[BUFFER_SIZE];
 
+  printf("got past header\n");
+
+  for(int i = 0; i < numplayers; i++) {
+    sprintf(temp, "Player %d's score: %d", i, scores[i]);
+    printf("put player's scores in\n");
+    displayline(temp);
+    
+  }
+  
+
+  displayline("");
+  
+  sprintf(temp, "Letters in play: %s_", letters);
+  displayline(temp);
+  
   return 0;
 }
 
@@ -102,7 +121,6 @@ return 0;
 }
 
 int displayline(char * toprint) { //toprint must be shorter than 64 (not null) characters
-  int LEN = 63;
   char spacer[LEN + 1];
   for(int i = 0;i < LEN;i++) {
     spacer[i]=' ';
@@ -187,5 +205,15 @@ int enterblock() { // "press enter to continue"
   printf("Press Enter to continue...\n");
   char input[BUFFER_SIZE];
   fgets(input, BUFFER_SIZE, stdin);
+  return 0;
+}
+
+int displayquestion(char * toprint) { //same as displaylie(), but for when you want user input after it is printed
+  char spacer[LEN];
+  for(int i = 0;i < LEN;i++) {
+    spacer[i]=0;
+  }
+  strncpy(spacer,toprint,LEN - 1);
+  printf("\n   %s", spacer);
   return 0;
 }
