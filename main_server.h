@@ -4,11 +4,8 @@
 #define NUM_PLAYERS 2
 #define BUFFER_SIZE 256
 
-void print_scores(int numplayers);
-int waiting(int curr);
+int players_waiting(int curr);
+int swap(int player);
 static void sighandler(int signo);
-int write_num_to_player(int num, int player);
-int print_inplay(int cur, char *letters);
-int clean_inplay(char *letters);
 
 #endif
