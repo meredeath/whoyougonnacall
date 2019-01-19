@@ -37,4 +37,12 @@ Wednesday 1/16/19 -- day 19
  * cleaned and commented server code (Meredith)
 
 Thursday 1/17/19 -- day 20
- * 
+--nobody did anything because we were all studying for finals--
+
+Friday 1/18/19 -- day 21
+~Note: Fabiha and I (Meredith) called so we did all this stuff together, really~
+ * restored old code that worked (Fabiha)
+ * wrote sighandler on server side (Meredith)
+ * improved server sighandler by writing better client termination in a new function called death (Fabiha)
+ * wrote end game mechanics when client collects 5 points (Fabiha)
+ * updated README (Meredith)
