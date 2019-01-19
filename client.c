@@ -55,6 +55,38 @@ int main(int argc, char **argv) {
       for (int i = 0; i < num_players; i++)
 	{
 	  read( server_socket, buffer, sizeof(buffer) );
+
+	  if(strcmp(buffer, "lose game") == 0){
+
+	    if (close( server_socket ) == -1)
+	      {
+		printf("error %d: %s\n", errno, strerror(errno));
+	      }
+
+	    close(server_socket);
+	    losegame();
+	    
+	    //printf("");
+	    exit(0);
+	    printf("successfully exited the client program \n");
+	  }
+
+	  if(strcmp(buffer, "win game") == 0){
+
+	    if (close( server_socket ) == -1)
+	      {
+		printf("error %d: %s\n", errno, strerror(errno));
+	      }
+
+	    close(server_socket);
+	    wingame();
+	    
+	    //printf("");
+	    exit(0);
+	    printf("successfully exited the client program \n");
+	  }
+
+
 	  death(server_socket, buffer);
 	  scores[i] = atoi( buffer );
       
