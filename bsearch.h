@@ -9,5 +9,6 @@
 #define BSEARCH_H
 
 int binsearch(char * your_word);
+int wordlen(char * word);
 
 #endif

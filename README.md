@@ -30,9 +30,24 @@ Since there are no required libraries, you don't need to install any to get our 
 ## How to Use
 #### (Instructions provided only in bash)
 1. In the terminal, after cloning the repository, run:
-~~
+```
 $ make
-~~
+$ ./setup
+$ ./server
+```
+2. The server takes in 2 players before beginning the game. These two players can be created by opening a different terminal.
+3. If running client on the same PC as the server run:
+```
+$ ./client
+```
+else run:
+```
+$ ./client <IP ADDRESS OF SERVER>
+```
+4. If you are done playing the game and wish to remove it, run:
+```
+$ ./trash
+```
 
 ## Bugs
  * there is no input parsing, so if you try entering a whole word it won't give you an error, it'll just enter the first letter of the word you tried to enter
