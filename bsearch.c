@@ -33,7 +33,7 @@ int binsearch(char * your_word)
   int high = NUM_WORDS - 1;
   int low = 0;
   int counter = 0;
-
+  
   // see if the prefix is valid
   while (low <= high)
     {
@@ -47,7 +47,7 @@ int binsearch(char * your_word)
 	  printf("At word: [%s], too high\n", my_word);
 	  high = (int) ((high + low) / 2 - 1);
 	}
-      else if (strcmp(my_word, your_word) < 0)
+      else if (strncmp(my_word, your_word, wordlen(your_word)) < 0)
 	{
 	  // looking too low
 	  printf("At word: [%s], too low\n", my_word);
@@ -62,11 +62,12 @@ int binsearch(char * your_word)
 
   if (high < low)
     {
+      printf("prefix doesn't exit\n");
       // prefix does not exist this word is incorrect
       return -1;
     }
   
-
+  
   high = NUM_WORDS - 1;
   low = 0;
   counter = 0;

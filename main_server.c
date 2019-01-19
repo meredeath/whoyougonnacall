@@ -143,7 +143,8 @@ int main()
 
 	      printf("letters in play: [%s]\n", inplay_letters);
 	      // bsearch
-	      if (binsearch(inplay_letters))
+	      int bin = binsearch(inplay_letters);
+	      if (bin == -1 || bin == 1)
 		{
 		  // it is a word
 		  // curr is accused of word
