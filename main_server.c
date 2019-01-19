@@ -192,7 +192,7 @@ int main()
 	      // player gains a point for losing
 	      player_points[i] += 1;
 
-	      if (player_points[i] == 2)
+	      if (player_points[i] == 5)
 		{
 		  swap(i);
 		}
