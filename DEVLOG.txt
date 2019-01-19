@@ -48,3 +48,4 @@ Friday 1/18/19 -- day 21
  * updated README (Meredith)
  * made main_server.h functional (Meredith)
  * updated binsearch to invalidate invalid word prefixes (Fabiha)
+ * wrote client sighandler (Meredith)

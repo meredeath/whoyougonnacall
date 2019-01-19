@@ -1,14 +1,45 @@
 #include <string.h>
+#include <signal.h>
 #include "networking.h"
 #include "clientmethods.h"
 
 #define clear printf("\033[H\033[J")
 
+char buffer[BUFFER_SIZE];
+int me;
+int server_socket;
+
+static void sighandler(int signo){
+  if (signo == SIGINT){
+    /*
+    //send server a player has killed themselves
+    sprintf( buffer, "%s", "client_killed");
+    if (write( server_socket, buffer, sizeof(buffer) ) == -1){
+      printf("error writing to server client killed signal\n");
+    }
+
+    //send server the number of the dead player
+    sprintf( buffer, "%d", me);
+    if (write( server_socket, buffer, sizeof(buffer) ) == -1){
+      printf("error writing to server player number\n");
+    }
+    
+    //close socket to server
+    if (close(server_socket) == -1){
+      printf("error closing socket to server");
+    }
+    printf("You have lost the game automatically by forfeiting.\n");
+    exit(0);
+    */
+    printf("you cannot quit the game. If you wish to stop playing, just lose on purpose to exit.\n");
+  }
+}
+
 int main(int argc, char **argv) {
 
-  int server_socket;
-  char buffer[BUFFER_SIZE];
-
+  //adding signal handling
+  signal(SIGINT, sighandler);
+  
   // welcome
   clear;
   printf("Welcome to GHOST!\n");
@@ -26,7 +57,7 @@ int main(int argc, char **argv) {
   printf("connected to server\n");
   printf("Waiting for other players to come join.");
   
-  int me = 0;
+  me = 0;
   
   int num_players = 0;
 

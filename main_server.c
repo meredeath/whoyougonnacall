@@ -253,6 +253,30 @@ int swap(int player)
   close(temp);
 
   num_players -= 1;
-  
+
   return 0;
+  //if(player == 0){
+  //return 1;
+  //}else{
+  //return 0;
+  //}
 }
+
+/*
+int player_death(char *stuff, int playsock){
+  if (strcmp(buffer, "client_killed") == 0){
+
+    //getting player number of player who quit
+    read( playsock, buffer, sizeof(buffer) );
+    int playnum = atoi(buffer);
+
+    //send lose game to loser, grabs player who won
+    int winner = swap(playnum);
+
+    //send win game to winner
+    sprintf( buffer, "win game" );
+    printf("%s\n", buffer);
+    write( players[winner], buffer, sizeof(buffer) ); 
+  }
+}
+*/
