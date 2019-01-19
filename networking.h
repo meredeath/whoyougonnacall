@@ -14,7 +14,7 @@
 
 #define BUFFER_SIZE 256
 #define NUM_PLAYERS 2
-#define PORT "9001"
+#define PORT "8080"
 #define TEST_IP "127.0.0.1"
 
 void error_check(int i, char *s);

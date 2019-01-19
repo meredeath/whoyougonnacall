@@ -1,6 +1,7 @@
 #include "networking.h"
 #include "bsearch.h"
 #include <signal.h>
+#include <unistd.h>
 
 int listen_socket;
 int f;
@@ -16,10 +17,29 @@ static void sighandler(int signo)
 {
   if (signo == SIGINT)
   {
-    for (int i = 0; i < num_players; i++)
+    for (int i = 0; i < NUM_PLAYERS; i++)
       {
-	shutdown(players[i], 2);
+	//send kill signals to players
+	sprintf( buffer, "%s", "exit" );
+	
+	if (write( players[i], buffer, sizeof(buffer) )==-1 ){
+	  printf("error writing to players to exit\n");
+	}
+	printf("i right now is: %d\n", i);
+	printf("num_players right now is: %d\n", num_players);
+        num_players--;
+
+	//close sockets to players
+	/*
+	if (close(players[i])==-1){
+	  printf("error closing sockets to player\n");
+	}
+	*/
+	//close(player[i]);
+
       }
+    printf("got out of for loop in sighandler\n");
+    //exit(1);//kill server
   }
 }
 
@@ -72,7 +92,7 @@ int main()
 	    }
 	}
       
-      if (curr_player == prev_player)
+      if (curr_player == prev_player && num_players == 2)
 	{
 	  // first play
 	  
