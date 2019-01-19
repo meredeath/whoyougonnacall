@@ -25,17 +25,15 @@ static void sighandler(int signo)
 	if (write( players[i], buffer, sizeof(buffer) )==-1 ){
 	  printf("error writing to players to exit\n");
 	}
+	
 	printf("i right now is: %d\n", i);
 	printf("num_players right now is: %d\n", num_players);
-        //num_players--;
 
 	//close sockets to players
-	/*
+	
 	if (close(players[i])==-1){
 	  printf("error closing sockets to player\n");
 	}
-	*/
-	//close(player[i]);
 
       }
     printf("got out of for loop in sighandler\n");
