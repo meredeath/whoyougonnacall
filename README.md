@@ -51,5 +51,4 @@ $ ./trash
 
 ## Bugs
  * there is no input parsing, so if you try entering a whole word it won't give you an error, it'll just enter the first letter of the word you tried to enter
- * the game only supports functionality for two players at the moment
- 
+ * the game only supports functionality for two players at the moment 

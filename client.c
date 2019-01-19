@@ -55,10 +55,12 @@ int main(int argc, char **argv) {
     server_socket = client_setup( argv[1] );
   else
     server_socket = client_setup( TEST_IP );
-
-  printf("connected to server\n");
-  printf("Waiting for other players to come join.");
-  
+  printf("\n");
+  printf("             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+  printf("             ~    Successfully connected to server   ~\n");
+  printf("             ~Waiting for other players to come join.~\n");
+  printf("             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	 
   me = 0;
   
   int num_players = 0;
@@ -68,16 +70,16 @@ int main(int argc, char **argv) {
   death(server_socket, buffer);
   
   me = atoi( buffer );
-  printf("error %d: %s\n", errno, strerror(errno));
-  printf("i am player %d\n", me);
+  //printf("error %d: %s\n", errno, strerror(errno));
+  printf("\nYou are Player %d\n", me);
   
   // get the number of players
   read( server_socket, buffer, sizeof(buffer) );
   death(server_socket, buffer);
   
   num_players = atoi( buffer );
-  printf("error %d: %s\n", errno, strerror(errno));
-  printf("received the number of players: %d\n", num_players);
+  //printf("error %d: %s\n", errno, strerror(errno));
+  printf("\nNumber of players: %d\n\n", num_players);
 
   int scores[num_players];
   char letters[BUFFER_SIZE];
@@ -85,6 +87,10 @@ int main(int argc, char **argv) {
   while (1)
     {
       // get all the current scores of the players
+      //print score box in interface
+      printf("\n");
+      printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      printf("~ SCORE UPDATE COMING SOON: ~\n");
       for (int i = 0; i < num_players; i++)
 	{
 	  read( server_socket, buffer, sizeof(buffer) );
@@ -116,25 +122,28 @@ int main(int argc, char **argv) {
 	    
 	    //printf("");
 	    exit(0);
-	    printf("successfully exited the client program \n");
+	    //printf("successfully exited the client program \n");
 	  }
 
 
 	  death(server_socket, buffer);
 	  scores[i] = atoi( buffer );
       
-	  printf("Player %d score: %d\n", i, scores[i]);
+	  printf("~    Player %d's score: %d    ~\n", i, scores[i]);
 	}
 
+          printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+	  printf("\n");
+	  
       // letters
       read( server_socket, letters, sizeof(buffer) );
       death(server_socket, buffer);
-      printf("letters: %s\n", letters);
+      //printf("letters: %s\n", letters);
       
       // find out which prompt it is
       read( server_socket, buffer, sizeof(buffer) );
       death(server_socket, buffer);
-      printf("%s\n", buffer);
+      //printf("%s\n", buffer);
   
       // first play
       if (strcmp(buffer, "first play") == 0)

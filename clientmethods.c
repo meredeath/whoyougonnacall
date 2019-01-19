@@ -19,10 +19,14 @@ int intro()
 
       displayline("Welcome to GHOST!");
       displayline("Here are your options:");
+
       displayline("");
-      displayline("  [1] Read Instructions");
-      displayline("  [2] Join Game");
+      displayline("~~~~~~~~~~~~~~~~~~~~~~~~~");
+      displayline("~ [1] Read Instructions ~");
+      displayline("~ [2] Join Game         ~");
+      displayline("~~~~~~~~~~~~~~~~~~~~~~~~~");
       displayline("");
+      
       displayquestion("Choose an option (enter \"1\" or \"2\"): ");
 
       fgets(input, BUFFER_SIZE, stdin);
@@ -31,26 +35,31 @@ int intro()
     	{
     	  displayheader();
 
-    	  displayline(":INSTRUCTIONS:");
+    	  displayline("                 :INSTRUCTIONS:");
+	  displayline("");
+	  
 	  displayline("Once again, welcome to GHOST!");
+	  displayline("");
+	  
 	  displayline("You can start playing by selecting option 2 on the menu.");
 	  displayline("You will either create a new game or join an existing one.");
 	  displayline("If you are player 0, wait for another player to connect.");
 	  displayline("Once there are two players present, press enter to continue.");
+	  displayline("");
+	  
 	  displayline("The game will prompt you for a letter.");
 	  displayline("You two players will take turns giving letters to the game.");
 	  displayline("The objective is to not form a word.");
-	  displayline("Careful: invalid word prefixes will cause an error.");
-	  displayline("");
+	  displayline("~Note: invalid word prefixes will cause an error.");
 	  displayline("Whichever player forms a word first by giving a letter");
 	  displayline("gains a point for doing so.");
 	  displayline("");
+	  
 	  displayline("When a player has five points, they have lost and the other");
 	  displayline("player is the winner.");
 	  displayline("~Note: You cannot quit the game. If you want to exit you must");
 	  displayline("either win or lose.");
-	  displayline("");
-	  displayline("~Note 2: If you enter a word, only the first letter will be taken.");
+	  displayline("~Note: If you enter a word, only the first letter will be taken.");
 	  displayline("");
 	  displayline("Good luck!");
 	  //displayline("");
@@ -86,16 +95,13 @@ int printstate(int numplayers, int scores[], char * letters, int activeplayer)
   displayheader();
   char temp[BUFFER_SIZE];
 
-  printf("got past header\n");
-
+  displayline("SCORES:");
   for(int i = 0; i < numplayers; i++) {
     sprintf(temp, "Player %d's score: %d", i, scores[i]);
-    printf("put player's scores in\n");
+    //printf("put player's scores in\n");
     displayline(temp);
-    
   }
   
-
   displayline("");
   
   sprintf(temp, "Letters in play: %s_", letters);
@@ -142,7 +148,7 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
     input[0] = input[0] + 'a' - 'A';
   }
 
-  write( server_socket, input, sizeof(input) ); // should add some formatting / message standardization
+  write( server_socket, input, sizeof(input) );
 
   return 0;
 }
@@ -195,7 +201,7 @@ int displayline(char * toprint) { //toprint must be shorter than 64 (not null) c
 
 int firstplay(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
-  printf("You are the first round!\n");
+  printf("You are the first round! :)\n");
   enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
     
@@ -216,39 +222,50 @@ int winround( int server_socket) {
   int err = read( server_socket, buffer, sizeof(buffer) );
 
   char temp[BUFFER_SIZE];
-  sprintf(temp, "Player %s lost the round.", buffer);
+  displayline("  <----------------------------------->"); 
+  sprintf(temp, "    <-Player %s lost the round.->", buffer);
   displayline(temp);
+  displayline("<-Which means you won!!! Keep it going!->");
+  displayline("  <----------------------------------->"); 
   
   enterblock();
   return 0;
 }
 
 int loseround() {
-  displayline("You lost the round.");
+  displayline("");
+  displayline("  <----------------------------------->");
+  displayline("<-You lost this round :( Maybe next time?->");
+  displayline("  <----------------------------------->");
+  displayline("");
   //enterblock();
   return 0;
 }
 
 int wingame() {
+  displayline("CONGRATULATIONS!");
   displayline("You won the game.");
   //enterblock();
   return 0;
 }
 
 int losegame() {
+  displayline("Oh no :(");
   displayline("You lost the game.");
   //enterblock();
   return 0;
 }
 
 int enterblock() { // "press enter to continue"
+  displayline("");
+  displayline("--------------------------");
   displayline("Press Enter to continue...");
   char input[BUFFER_SIZE];
   fgets(input, BUFFER_SIZE, stdin);
   return 0;
 }
 
-int displayquestion(char * toprint) { //same as displaylie(), but for when you want user input after it is printed
+int displayquestion(char * toprint) { //same as displayline(), but for when you want user input after it is printed
   char spacer[LEN];
   for(int i = 0;i < LEN;i++) {
     spacer[i]=0;
@@ -267,8 +284,11 @@ int death(int server_socket, char * buffer)
       {
 	printf("error %d: %s\n", errno, strerror(errno));
       }
-    
+
+    printf("\n- - - - - - - - - - - - - - - - - AHHHHHHHHHH!- - - - - - - - - - - - - - - - - -\n");
     printf("We apologize for this inconvenience. The server has been terminated. To play the game restart the server and try again.\n");
+    printf("^._____________________________________________________________.^\n\n");
+
     exit(0);
     printf("successfully exited the client program \n");    
   }
