@@ -27,7 +27,7 @@ static void sighandler(int signo)
 	}
 	printf("i right now is: %d\n", i);
 	printf("num_players right now is: %d\n", num_players);
-        num_players--;
+        //num_players--;
 
 	//close sockets to players
 	/*
