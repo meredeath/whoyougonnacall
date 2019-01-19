@@ -1,14 +1,10 @@
-all: client server
+all: client server setup trash
 
-setup:
-	gcc makedict.c
-	./a.out
+setup: makedict.c
+	gcc -o setup makedict.c
 
-delete:
-	ipcrm -m 9764886
-
-test:
-	gcc test.c bsearch.c bsearch.h
+trash: remdict.c
+	gcc -o trash remdict.c
 
 server: main_server.o networking.o bsearch.o
 	gcc -o server main_server.o networking.o bsearch.o
