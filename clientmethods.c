@@ -240,7 +240,7 @@ int death(int server_socket, char * buffer)
 	printf("error %d: %s\n", errno, strerror(errno));
       }
     
-    printf("We apologize for this inconvenience. The server has been terminated. To paly the game restart the server and try again.\n");
+    printf("We apologize for this inconvenience. The server has been terminated. To play the game restart the server and try again.\n");
     exit(0);
     printf("successfully exited the client program \n");    
   }
