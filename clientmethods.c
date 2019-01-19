@@ -31,7 +31,35 @@ int intro()
     	{
     	  displayheader();
 
-    	  displayline("Insert Instructions Here"); // What do we want to put here?
+    	  displayline(":INSTRUCTIONS:");
+	  displayline("Once again, welcome to GHOST!");
+	  displayline("You can start playing by selecting option 2 on the menu.");
+	  displayline("You will either create a new game or join an existing one.");
+	  displayline("If you are player 0, wait for another player to connect.");
+	  displayline("Once there are two players present, press enter to continue.");
+	  displayline("The game will prompt you for a letter.");
+	  displayline("You two players will take turns giving letters to the game.");
+	  displayline("The objective is to not form a word.");
+	  displayline("Careful: invalid word prefixes will cause an error.");
+	  displayline("");
+	  displayline("Whichever player forms a word first by giving a letter");
+	  displayline("gains a point for doing so.");
+	  displayline("");
+	  displayline("When a player has five points, they have lost and the other");
+	  displayline("player is the winner.");
+	  displayline("~Note: You cannot quit the game. If you want to exit you must");
+	  displayline("either win or lose.");
+	  displayline("");
+	  displayline("~Note 2: If you enter a word, only the first letter will be taken.");
+	  displayline("");
+	  displayline("Good luck!");
+	  //displayline("");
+	  //displayline("");
+	  //displayline("");
+	  //displayline("");
+	  //displayline("");
+	  //displayline("");
+	  
 	  enterblock();
 
     	  fgets(input, BUFFER_SIZE, stdin);
