@@ -23,7 +23,7 @@ int intro()
       displayline("  [2] Join Game");
       displayline("");
       displayquestion("Choose an option (enter \"1\" or \"2\"): ");
-      fflush(stdout);
+
       fgets(input, BUFFER_SIZE, stdin);
 
       if(!strncmp(input,"1",1))
@@ -79,7 +79,11 @@ int waiting(int numplayers, int scores[], char * letters, int activeplayer)
 {
   //block until receive message, return the message
   printstate(numplayers, scores, letters, activeplayer);
-  printf("\nWaiting for Player %d...\n", activeplayer);
+
+  char temp[BUFFER_SIZE];
+  displayline("");
+  sprintf(temp, "Waiting for Player %d...", activeplayer);
+  displayline(temp);
 
   /*
   char buffer[BUFFER_SIZE];
@@ -100,8 +104,8 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
   
   char input[BUFFER_SIZE];
   
-  printf("\nEnter a letter: ");
-  fflush(stdout);
+  displayquestion("Enter a letter: ");
+
   fgets(input, BUFFER_SIZE, stdin);
   input[1] = 0;
 
@@ -115,8 +119,11 @@ int playround(int server_socket, int numplayers, int scores[], char * letters, i
 }
 
 int displayheader() {
-printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
-return 0;
+  clear;
+  printf("*********************************************************************\n*                                                                   *\n*      0000      00      00       0000         0000     0000000000  *\n*    00          00      00     00    00     00    00       00      *\n*  00            00      00   00        00   00             00      *\n*  00            0000000000   00        00     0000         00      *\n*  00     0000   00      00   00        00         00       00      *\n*    00    00    00      00     00    00     00    00       00      *\n*      0000      00      00       0000         0000         00      *\n*                                                                   *\n*                                                                   *\n");
+  return 0;
+  // "*  " + 63 characters + "  *"
+  return 0;
 //"*  " + 63 characters + "  *"
 }
 
@@ -168,7 +175,7 @@ int firstplay(int server_socket, int numplayers, int scores[], char * letters, i
 
 int normround(int server_socket, int numplayers, int scores[], char * letters, int activeplayer)
 {
-  printf("It is your round!\n");
+  displayline("It is your round!");
   enterblock();
   playround( server_socket, numplayers, scores, letters, activeplayer);
     
@@ -178,31 +185,35 @@ int normround(int server_socket, int numplayers, int scores[], char * letters, i
 int winround( int server_socket) {
   char buffer[BUFFER_SIZE];
   int err = read( server_socket, buffer, sizeof(buffer) );
-  printf("Player %s lost the round.\n", buffer);
+
+  char temp[BUFFER_SIZE];
+  sprintf(temp, "Player %s lost the round.", buffer);
+  displayline(temp);
+  
   enterblock();
   return 0;
 }
 
 int loseround() {
-  printf("You lost the round.\n");
+  displayline("You lost the round.");
   enterblock();
   return 0;
 }
 
 int wingame() {
-  printf("You won the game.\n");
+  displayline("You won the game.");
   enterblock();
   return 0;
 }
 
 int losegame() {
-  printf("You lost the game.\n");
+  displayline("You lost the game.");
   enterblock();
   return 0;
 }
 
 int enterblock() { // "press enter to continue"
-  printf("Press Enter to continue...\n");
+  displayline("Press Enter to continue...");
   char input[BUFFER_SIZE];
   fgets(input, BUFFER_SIZE, stdin);
   return 0;
@@ -215,5 +226,6 @@ int displayquestion(char * toprint) { //same as displaylie(), but for when you w
   }
   strncpy(spacer,toprint,LEN - 1);
   printf("\n   %s", spacer);
+  fflush(stdout);
   return 0;
 }
