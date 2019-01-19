@@ -49,3 +49,5 @@ Friday 1/18/19 -- day 21
  * made main_server.h functional (Meredith)
  * updated binsearch to invalidate invalid word prefixes (Fabiha)
  * wrote client sighandler (Meredith)
+ * attempted to include challenges as well as multiple players but due to compliing issues left it out of 
+   final version (Meredith and Fabiha) 
