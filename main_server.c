@@ -27,7 +27,7 @@ static void sighandler(int signo)
 	}
 	
 	printf("i right now is: %d\n", i);
-	printf("num_players right now is: %d\n", num_players);
+	//printf("num_players right now is: %d\n", num_players);
 
 	//close sockets to players
 	
@@ -37,7 +37,7 @@ static void sighandler(int signo)
 
       }
     printf("got out of for loop in sighandler\n");
-    //exit(1);//kill server
+    exit(0);//kill server
   }
 }
 

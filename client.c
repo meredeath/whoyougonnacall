@@ -32,22 +32,16 @@ int main(int argc, char **argv) {
 
   // get the player's number
   read( server_socket, buffer, sizeof(buffer) );
-  if(strcmp(buffer, "exit") == 0){
-    printf("what's in buffer (should be exit): %s\n", buffer);
-    exit(1);
-    printf("successfully exited the client program \n");
-  }
+  death(server_socket, buffer);
+  
   me = atoi( buffer );
   printf("error %d: %s\n", errno, strerror(errno));
   printf("i am player %d\n", me);
   
   // get the number of players
   read( server_socket, buffer, sizeof(buffer) );
-  if(strcmp(buffer, "exit") == 0){
-	printf("what's in buffer (should be exit): %s\n", buffer);
-	 exit(1);
-	printf("successfully exited the client program \n");
-  }
+  death(server_socket, buffer);
+  
   num_players = atoi( buffer );
   printf("error %d: %s\n", errno, strerror(errno));
   printf("received the number of players: %d\n", num_players);
@@ -61,11 +55,7 @@ int main(int argc, char **argv) {
       for (int i = 0; i < num_players; i++)
 	{
 	  read( server_socket, buffer, sizeof(buffer) );
-	  if(strcmp(buffer, "exit") == 0){
-	printf("what's in buffer (should be exit): %s\n", buffer);
-	 exit(1);
-	printf("successfully exited the client program \n");
-	  }
+	  death(server_socket, buffer);
 	  scores[i] = atoi( buffer );
       
 	  printf("Player %d score: %d\n", i, scores[i]);
@@ -73,20 +63,12 @@ int main(int argc, char **argv) {
 
       // letters
       read( server_socket, letters, sizeof(buffer) );
-      if(strcmp(buffer, "exit") == 0){
-	printf("what's in buffer (should be exit): %s\n", buffer);
-	 exit(1);
-	printf("successfully exited the client program \n");
-}
+      death(server_socket, buffer);
       printf("letters: %s\n", letters);
       
       // find out which prompt it is
       read( server_socket, buffer, sizeof(buffer) );
-      if(strcmp(buffer, "exit") == 0){
-	printf("what's in buffer (should be exit): %s\n", buffer);
-	 exit(1);
-	printf("successfully exited the client program \n");
-}
+      death(server_socket, buffer);
       printf("%s\n", buffer);
   
       // first play

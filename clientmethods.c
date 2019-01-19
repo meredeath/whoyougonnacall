@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 #include "clientmethods.h"
 #include "networking.h"
 
@@ -228,4 +229,20 @@ int displayquestion(char * toprint) { //same as displaylie(), but for when you w
   printf("\n   %s", spacer);
   fflush(stdout);
   return 0;
+}
+
+int death(int server_socket, char * buffer)
+{
+  if(strcmp(buffer, "exit") == 0){
+
+    if (close( server_socket ) == -1)
+      {
+	printf("error %d: %s\n", errno, strerror(errno));
+      }
+    
+    printf("We apologize for this inconvenience. The server has been terminated. To paly the game restart the server and try again.\n");
+    exit(0);
+    printf("successfully exited the client program \n");    
+  }
+
 }

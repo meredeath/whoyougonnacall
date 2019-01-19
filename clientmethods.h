@@ -33,5 +33,6 @@ int gameover(); // tells the user the server shut them down.
 
 int challenge(int server_socket, int numplayers, int scores[], char * letters, int activeplayer); // tells user that they have been challenged, asks for completed word and sends the word to the server
 
+int death(int server_socket, char * buffer);
 
 #endif
