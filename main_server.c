@@ -13,6 +13,9 @@ char buffer[BUFFER_SIZE];
 int num_players;
 
 int players_waiting(int wait);
+int swap(int player);
+
+
 static void sighandler(int signo)
 {
   if (signo == SIGINT)
@@ -161,21 +164,22 @@ int main()
       
 	}
 
-      	  // has broken out of while which means a round has ended 
-	  printf("\n\nPrinting scores\n");
-	  for (int i = 0; i < num_players; i++)
-	    {
-	      for (int j = 0; j < num_players; j++)
-		{
-		  printf("Player %d score: %d\n", i, j);
-		  sprintf( buffer, "%d", player_points[j] );
-		  write( players[i], buffer, sizeof(buffer) );
-		}
 
-	      sprintf( buffer, " " );
+      
+      // has broken out of while which means a round has ended 
+      printf("\n\nPrinting scores\n");
+      for (int i = 0; i < num_players; i++)
+	{
+	  for (int j = 0; j < num_players; j++)
+	    {
+	      printf("Player %d score: %d\n", i, j);
+	      sprintf( buffer, "%d", player_points[j] );
 	      write( players[i], buffer, sizeof(buffer) );
 	    }
 
+	  sprintf( buffer, " " );
+	  write( players[i], buffer, sizeof(buffer) );
+	}
 
 
       for (int i = 0; i < num_players; i++)
@@ -188,11 +192,9 @@ int main()
 	      // player gains a point for losing
 	      player_points[i] += 1;
 
-	      if (player_points[i] == 5)
+	      if (player_points[i] == 2)
 		{
-		  // write end condition
-		  // and break out
-		  // start a new game
+		  swap(i);
 		}
 	    }
 	  else
@@ -207,7 +209,11 @@ int main()
 
       
     }
-      
+
+  sprintf( buffer, "win game" );
+  write( players[0], buffer, sizeof(buffer) );
+
+  close(0);
 }
 
 int players_waiting(int curr)
@@ -228,4 +234,28 @@ int players_waiting(int curr)
 	  //write( players[i], buffer, sizeof(buffer) );
 	}
     }
+}
+
+int swap(int player)
+{
+  int temp = players[player];
+  players[player] = players[num_players - 1];
+
+  // should we tell the player to kill themselves?
+  // client file should check that if they have 5 points
+  // then they should close socket
+  // and die for rn
+
+  // send "lose game"
+
+  sprintf( buffer, "lose game" );
+  printf("%s\n", buffer);
+  write( temp, buffer, sizeof(buffer) );
+
+  
+  close(temp);
+
+  num_players -= 1;
+  
+  return 0;
 }

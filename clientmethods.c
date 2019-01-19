@@ -197,19 +197,19 @@ int winround( int server_socket) {
 
 int loseround() {
   displayline("You lost the round.");
-  enterblock();
+  //enterblock();
   return 0;
 }
 
 int wingame() {
   displayline("You won the game.");
-  enterblock();
+  //enterblock();
   return 0;
 }
 
 int losegame() {
   displayline("You lost the game.");
-  enterblock();
+  //enterblock();
   return 0;
 }
 
