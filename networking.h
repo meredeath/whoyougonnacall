@@ -17,6 +17,8 @@
 #define PORT "8080"
 #define TEST_IP "127.0.0.1"
 
+//struct participant{char *name, int number, int score};
+
 void error_check(int i, char *s);
 int server_setup();
 int server_connect(int sd);

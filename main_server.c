@@ -238,6 +238,10 @@ int swap(int player)
   int temp = players[player];
   players[player] = players[num_players - 1];
 
+  int tempscores = player_points[player];
+  player_points[player] = player_points[num_players - 1];
+  player_points[num_players - 1] == tempscores;
+  
   // should we tell the player to kill themselves?
   // client file should check that if they have 5 points
   // then they should close socket
