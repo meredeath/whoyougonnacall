@@ -1,5 +1,6 @@
 #include "networking.h"
 #include "bsearch.h"
+#include "main_server.h"
 #include <signal.h>
 #include <unistd.h>
 
@@ -11,10 +12,6 @@ int player_points[NUM_PLAYERS];
 char buffer[BUFFER_SIZE];
 
 int num_players;
-
-int players_waiting(int wait);
-int swap(int player);
-
 
 static void sighandler(int signo)
 {
