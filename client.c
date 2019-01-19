@@ -31,7 +31,9 @@ static void sighandler(int signo){
     printf("You have lost the game automatically by forfeiting.\n");
     exit(0);
     */
-    printf("you cannot quit the game. If you wish to stop playing, just lose on purpose to exit.\n");
+    //printf("you cannot quit the game. If you wish to stop playing, just lose on purpose to exit.\n");
+
+    return;
   }
 }
 
